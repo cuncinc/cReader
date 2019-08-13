@@ -20,11 +20,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Button b_login = (Button) findViewById(R.id.button_login);
-        Button b_logup = (Button) findViewById(R.id.button_logup);
         et_account = (EditText) findViewById(R.id.editText_account);
         et_password = (EditText) findViewById(R.id.editText_password);
         b_login.setOnClickListener(this);
-        b_logup.setOnClickListener(this);
     }
 
     @Override
