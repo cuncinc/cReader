@@ -2,27 +2,28 @@ package com.cc.creader;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Toast;
+
+import com.cc.creader.fragment.BookcaseFragment;
+import com.cc.creader.fragment.PersonInfoFragment;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener
 {
-    private EditText et_account;
-    private EditText et_password;
-
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Button b_login = (Button) findViewById(R.id.button_login);
-        et_account = (EditText) findViewById(R.id.editText_account);
-        et_password = (EditText) findViewById(R.id.editText_password);
-        b_login.setOnClickListener(this);
+        Button button1 = (Button)findViewById(R.id.button_bookcase);
+        Button button2 = (Button)findViewById(R.id.button_person_info);
+        button1.setOnClickListener(this);
+        button2.setOnClickListener(this);
+        replaceFragment(new BookcaseFragment());
     }
 
     @Override
@@ -30,16 +31,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     {
         switch (v.getId())
         {
-            case R.id.button_login :
-                String str_account = et_account.getText().toString();
-                String str_password = et_password.getText().toString();
-                Toast.makeText(MainActivity.this, "登录成功"+str_account, Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(MainActivity.this, DisplayActivity.class);
-                startActivity(intent);
+            case R.id.button_bookcase:
+                replaceFragment(new BookcaseFragment());
                 break;
-
+            case R.id.button_person_info:
+                replaceFragment(new PersonInfoFragment());
+                break;
             default:
                 break;
         }
+    }
+
+    private void replaceFragment(Fragment fragment)
+    {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.replace(R.id.fragment_layout, fragment);
+        transaction.commit();
     }
 }

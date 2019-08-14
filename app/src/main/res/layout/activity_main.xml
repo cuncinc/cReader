@@ -11,44 +11,42 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.cc.creader.MainActivity">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <EditText
-                android:id="@+id/editText_account"
+            <FrameLayout
+                android:id="@+id/fragment_layout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="none"
-                android:ems="10"
-                android:hint="账号"
-                android:textColorLink="?attr/colorControlHighlight"
-                android:maxLines="1"/>
+                android:layout_height="0dp"
+                android:layout_weight="9" >
+            </FrameLayout>
 
-            <EditText
-                android:id="@+id/editText_password"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textPassword"
-                android:ems="10"
-                android:hint="密码"
-                android:maxLines="1"/>
 
-            <Button
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/button_login"
-                android:text="登录"/>
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/button_bookcase"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="书架"/>
+
+                <Button
+                    android:id="@+id/button_person_info"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="我的"/>
+
+            </LinearLayout>
+
 
         </LinearLayout>
-
-
-    </RelativeLayout>
-
 
 </RelativeLayout>
