@@ -20,7 +20,7 @@
                 android:id="@+id/fragment_layout"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="9" >
+                android:layout_weight="12" >
             </FrameLayout>
 
 
@@ -35,14 +35,16 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:text="书架"/>
+                    android:text="书架"
+                    android:background="#1B86DB"/>
 
                 <Button
                     android:id="@+id/button_person_info"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:text="我的"/>
+                    android:text="我的"
+                    android:background="#165380"/>
 
             </LinearLayout>
 
