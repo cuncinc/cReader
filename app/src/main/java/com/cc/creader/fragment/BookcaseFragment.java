@@ -12,14 +12,14 @@ import com.cc.creader.R;
 
 public class BookcaseFragment extends Fragment
 {
+    private View view;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
-        View view = inflater.inflate(R.layout.bookcase_fragment, container, false);
-        EditText et_string = (EditText) view.findViewById(R.id.edittext_bookcase);
-        Button bt_string = (Button) view.findViewById(R.id.button_bookcase);
-
+        view = inflater.inflate(R.layout.bookcase_fragment, container, false);
         return view;
     }
+
 
 }
