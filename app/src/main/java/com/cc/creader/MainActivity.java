@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -19,6 +20,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+//        ActionBar actionbar = getSupportActionBar();
+//        if (actionbar != null)
+//            actionbar.hide();
+        getSupportActionBar().hide();
         Button button1 = (Button)findViewById(R.id.button_bookcase);
         Button button2 = (Button)findViewById(R.id.button_person_info);
         button1.setOnClickListener(this);
