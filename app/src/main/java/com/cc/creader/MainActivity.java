@@ -9,12 +9,16 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 
 import com.cc.creader.fragment.BookcaseFragment;
 import com.cc.creader.fragment.PersonInfoFragment;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener
 {
+
+    private EditText editText;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -36,6 +40,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     {
         switch (v.getId())
         {
+            //这里有点不对。如果bookcase已经显示在界面上，按下切换到bookcase按钮时，
+            // bookcase碎片就会重新加载，所有信息重置，会经历一个完整的生命周期。person也是一样
             case R.id.button_bookcase:
                 replaceFragment(new BookcaseFragment());
                 break;
