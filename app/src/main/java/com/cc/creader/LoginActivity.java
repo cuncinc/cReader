@@ -68,6 +68,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 {
                     AlertDialog.Builder dialog = new AlertDialog.Builder(LoginActivity.this);
                     dialog.setMessage("账号未注册！");
+                    et_account.setText("");
+                    et_password.setText("");
                     dialog.show();
                     cursor.close();
                     break;

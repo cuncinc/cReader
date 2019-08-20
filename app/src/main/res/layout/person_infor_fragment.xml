@@ -26,12 +26,16 @@
                 android:contentDescription="ID这两个字"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="ID"/>
+                android:text="ID"
+                android:textSize="@dimen/personinfo_left_font_size"
+                android:textColor="#000000"/>
             <TextView
                 android:contentDescription="ID数字"
                 android:id="@+id/textview_online_id"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/personinfo_left_font_size"
+                android:layout_marginLeft="10dp"/>
         </LinearLayout>
     </LinearLayout>
 
@@ -50,16 +54,21 @@
             android:contentDescription="账号"
             android:layout_width="match_parent"
             android:layout_height="@dimen/personinfo_list_distance"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="账号"/>
+                android:text="账号"
+                android:textSize="@dimen/personinfo_left_font_size"
+                android:layout_marginLeft="@dimen/personinfo_left_margin"
+                android:textColor="#000000"/>
             <TextView
                 android:contentDescription="账号号码"
                 android:id="@+id/textview_online_account"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/personinfo_right_margin"/>
         </LinearLayout>
 
         <ImageView
@@ -71,15 +80,20 @@
             android:contentDescription="邮箱"
             android:layout_width="match_parent"
             android:layout_height="@dimen/personinfo_list_distance"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="邮箱"/>
+                android:text="邮箱"
+                android:textSize="@dimen/personinfo_left_font_size"
+                android:layout_marginLeft="@dimen/personinfo_left_margin"
+                android:textColor="#000000"/>
             <TextView
                 android:contentDescription="邮箱号码"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                />
         </LinearLayout>
 
         <ImageView
@@ -92,15 +106,20 @@
             android:background="@color/colorWhite"
             android:layout_width="match_parent"
             android:layout_height="@dimen/personinfo_list_distance"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="手机"/>
+                android:text="手机"
+                android:textSize="@dimen/personinfo_left_font_size"
+                android:layout_marginLeft="@dimen/personinfo_left_margin"
+                android:textColor="#000000"/>
             <TextView
                 android:contentDescription="手机号码"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                />
             </LinearLayout>
 
         <ImageView
@@ -112,11 +131,15 @@
             android:contentDescription="签名"
             android:layout_width="match_parent"
             android:layout_height="@dimen/personinfo_list_distance"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="签名"/>
+                android:text="签名"
+                android:textSize="@dimen/personinfo_left_font_size"
+                android:layout_marginLeft="@dimen/personinfo_left_margin"
+                android:textColor="#000000"/>
             <TextView
                 android:contentDescription="签名内容"
                 android:layout_width="wrap_content"
@@ -137,11 +160,15 @@
         android:contentDescription="修改密码"
         android:background="@color/colorWhite"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/personinfo_list_distance">
+        android:layout_height="@dimen/personinfo_list_distance"
+        android:gravity="center_vertical">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="修改密码"/>
+            android:text="修改密码"
+            android:textSize="@dimen/personinfo_left_font_size"
+            android:layout_marginLeft="@dimen/personinfo_left_margin"
+            android:textColor="#000000"/>
     </LinearLayout>
 
     <ImageView
@@ -157,17 +184,19 @@
         android:layout_height="wrap_content"/>
     
     <LinearLayout
+        android:id="@+id/layout_logoff"
         android:contentDescription="退出账号"
         android:background="@color/colorWhite"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/personinfo_list_distance">
+        android:layout_height="@dimen/personinfo_list_distance"
+        android:gravity="center">
 
         <TextView
-            android:layout_gravity="center_horizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="退出账号"
             android:textColor="#E70303"
+            android:textSize="16sp"
             />
     </LinearLayout>
 

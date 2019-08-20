@@ -13,15 +13,20 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.cc.creader.DBManager;
+import com.cc.creader.MainActivity;
 import com.cc.creader.R;
 import static com.cc.creader.MainActivity.dbmanager;
 
 public class PersonInfoFragment extends Fragment
 {
     private Cursor cursor;
+    private String onlineID;
+    private String onlineAccount;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -56,14 +61,30 @@ public class PersonInfoFragment extends Fragment
         }
 
         //设置ID
-        String onlineID = cursor.getString(cursor.getColumnIndex("ID"));
+        onlineID = cursor.getString(cursor.getColumnIndex("ID"));
         TextView tv_id = (TextView) getActivity().findViewById(R.id.textview_online_id);
         tv_id.setText(onlineID);
 
         //设置账号
-        String onlineAccount = cursor.getString(cursor.getColumnIndex("AccountNumber"));
+        onlineAccount = cursor.getString(cursor.getColumnIndex("AccountNumber"));
         TextView tv_account = (TextView) getActivity().findViewById(R.id.textview_online_account);
         tv_account.setText(onlineAccount);
+
+        LinearLayout linearLayout = (LinearLayout) getActivity().findViewById(R.id.layout_logoff);
+        linearLayout.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                //这个SQL命令已经包含了两个表的操作
+                String command_toLogoff = "UPDATE AccountInfo SET IsOnline = 0 WHERE IsOnline = 1;"
+                        + "DELETE FROM OnlineID;";
+                dbmanager.updateDB(command_toLogoff);
+                Toast.makeText(getActivity(), "退出成功", Toast.LENGTH_SHORT).show();
+                //返回栈这里要多注意，是直接销毁，还是创建一个新活动，或者把返回栈栈底的活动出栈
+                getActivity().finish();
+            }
+        });
     }
 
     @Override
@@ -120,6 +141,7 @@ public class PersonInfoFragment extends Fragment
     {
         super.onDestroy();
         Log.e("个人中心", "onDestroy");
+        cursor.close();
     }
 
     @Override
