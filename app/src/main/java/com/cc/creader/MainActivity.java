@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,17 +17,13 @@ import com.cc.creader.fragment.PersonInfoFragment;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener
 {
-
-    private EditText editText;
+    public static DBManager dbmanager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-//        ActionBar actionbar = getSupportActionBar();
-//        if (actionbar != null)
-//            actionbar.hide();
         getSupportActionBar().hide();
         Button button1 = (Button)findViewById(R.id.button_bookcase);
         Button button2 = (Button)findViewById(R.id.button_person_info);
@@ -59,5 +56,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.replace(R.id.fragment_layout, fragment);
         transaction.commit();
+    }
+
+    @Override
+    public void onStart()
+    {
+        super.onStart();
+        dbmanager = new DBManager(this);
+        dbmanager.openDB();
+//        Log.e("Login", "onRestart");
+    }
+
+    @Override
+    public void onStop()
+    {
+        super.onStop();
+        dbmanager.closeDB();
     }
 }

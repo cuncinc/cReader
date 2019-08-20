@@ -62,7 +62,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     dialog.show();
                     break;
                 }
-                String command_find = "SELECT PassWord FROM AccountInfo WHERE AccountNumber = \'" + str_account +"\';";
+                String command_find = "SELECT * FROM AccountInfo WHERE AccountNumber = \'" + str_account +"\';";
                 Cursor cursor = dbmanager.findDB(command_find);
                 if (!cursor.moveToFirst())
                 {
@@ -81,6 +81,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     cursor.close();
                     break;
                 }
+                //既在AccountInfo更新了IsOnline，也在OnlineID中增加了信息
+                int onlineID = cursor.getInt(cursor.getColumnIndex("ID"));
+                String command_addToOnline = "INSERT INTO OnlineID(ID, AccountNumber) VALUES (" + onlineID + ", \'" + str_account + "\');";
+                String command_upToOnline = "UPDATE AccountInfo SET IsOnline = 1 WHERE AccountNumber = \'" + str_account + "\'";
+                dbmanager.createDB(command_addToOnline);
+                dbmanager.updateDB(command_upToOnline);
                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                 startActivity(intent);
                 break;
