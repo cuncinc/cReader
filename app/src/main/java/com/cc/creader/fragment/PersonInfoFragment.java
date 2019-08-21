@@ -39,8 +39,6 @@ public class PersonInfoFragment extends Fragment
     {
         super.onActivityCreated(savedInstanceState);
         Log.e("个人中心", "onActivityCreated");
-//        String command_find_profile = "";
-//        cursor = dbmanager.findDB(command_find_profile);
         String command_get_onlineAccount = "SELECT * FROM AccountInfo WHERE IsOnline = 1";
         cursor = dbmanager.findDB(command_get_onlineAccount);
         cursor.moveToFirst();
@@ -48,7 +46,7 @@ public class PersonInfoFragment extends Fragment
         final String onlineID = cursor.getString(cursor.getColumnIndex("ID"));
         final String onlineAccount = cursor.getString(cursor.getColumnIndex("AccountNumber"));
         //设置头像
-        if (profileroute == null || profileroute.length()==0) //如果ProfileRoute为null或空，即默认头像没有被替换
+        if (profileroute==null || profileroute.length()==0) //如果ProfileRoute为null或空，即默认头像没有被替换
         {
             ImageView ima_profile = (ImageView) getActivity().findViewById(R.id.image_profile);
             ima_profile.setImageResource(R.drawable.default_profile);
