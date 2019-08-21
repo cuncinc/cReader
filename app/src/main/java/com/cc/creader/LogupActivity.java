@@ -28,7 +28,7 @@ public class LogupActivity extends AppCompatActivity implements View.OnClickList
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_logup);
-        getSupportActionBar().hide();
+//        getSupportActionBar().hide();
         et_logup_account = (EditText) findViewById(R.id.editText_logup_account);
         et_logup_password = (EditText) findViewById(R.id.editText_logup_password);
         et_logup_password_again = (EditText) findViewById(R.id.editText_logup_password_again);
@@ -36,7 +36,6 @@ public class LogupActivity extends AppCompatActivity implements View.OnClickList
         bt_logup.setOnClickListener(this);
 
         dbmanager = new DBManager(this);
-        dbmanager.openDB();
     }
 
     @Override

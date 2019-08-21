@@ -26,22 +26,13 @@ public class DBManager
     public DBManager(Context context)
     {
         this.context = context;
-    }
-
-    public SQLiteDatabase getDB()
-    {
-        return database;
-    }
-
-//    public void setDB(SQLiteDatabase database)
-//    {
-//        this.database = database;
-//    }
-
-    public void openDB()
-    {
         this.database = this.openDB(DB_PATH + "/" + DB_NAME);
     }
+
+//    public void openDB()
+//    {
+//        this.database = this.openDB(DB_PATH + "/" + DB_NAME);
+//    }
 
     private SQLiteDatabase openDB(String dbfile)
     {
@@ -88,11 +79,19 @@ public class DBManager
     public void updateDB(String command_update)
     {
         database.execSQL(command_update);
-        return;
     }
 
     public void closeDB()
     {
         this.database.close();
     }
+
+    //    public SQLiteDatabase getDB()
+//    {
+//        return database;
+//    }
+//    public void setDB(SQLiteDatabase database)
+//    {
+//        this.database = database;
+//    }
 }

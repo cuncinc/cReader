@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        getSupportActionBar().hide();
+//        getSupportActionBar().hide();
         Button button1 = (Button)findViewById(R.id.button_bookcase);
         Button button2 = (Button)findViewById(R.id.button_person_info);
         button1.setOnClickListener(this);
@@ -33,7 +33,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         replaceFragment(new BookcaseFragment());
 
         dbmanager = new DBManager(this);
-        dbmanager.openDB();
         Log.e("Main", "onCreate");
     }
 

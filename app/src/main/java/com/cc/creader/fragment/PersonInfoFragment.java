@@ -1,6 +1,7 @@
 package com.cc.creader.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -17,6 +18,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.cc.creader.LoginActivity;
 import com.cc.creader.R;
 import static com.cc.creader.MainActivity.dbmanager;
 
@@ -72,8 +74,9 @@ public class PersonInfoFragment extends Fragment
                 String command_toLogoff = "UPDATE AccountInfo SET IsOnline = 0 WHERE IsOnline = 1;";
                 dbmanager.updateDB(command_toLogoff);
                 Toast.makeText(getActivity(), "退出成功", Toast.LENGTH_SHORT).show();
-                //返回栈这里要多注意，是直接销毁，还是创建一个新活动，或者把返回栈栈底的活动出栈
+                Intent intent = new Intent(getActivity(), LoginActivity.class);
                 getActivity().finish();
+                startActivity(intent);
             }
         });
     }

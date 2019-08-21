@@ -24,7 +24,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        getSupportActionBar().hide();
+//        getSupportActionBar().hide();
         Button b_login = (Button) findViewById(R.id.button_login);
         Button b_tologup = (Button) findViewById(R.id.button_tologup);
 
@@ -34,7 +34,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         b_tologup.setOnClickListener(this);
 
         dbmanager = new DBManager(this);
-        dbmanager.openDB();
     }
 
     @Override
@@ -76,22 +75,18 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     cursor.close();
                     break;
                 }
-
+                String command_update_remember;
                 if (checkBox.isChecked()) //如果记住了密码
-                {
-                    String command_update_remember = "UPDATE AccountInfo SET IsRememberAccount = 1 WHERE AccountNumber = \'" + str_account + "\';";
-                    dbmanager.updateDB(command_update_remember);
-                }
+                    command_update_remember = "UPDATE AccountInfo SET IsRememberAccount = 1 WHERE AccountNumber = \'" + str_account + "\';";
                 else    //没有记住密码
-                {
-                    String command_update_remember = "UPDATE AccountInfo SET IsRememberAccount = 0 WHERE AccountNumber = \'" + str_account + "\';";
-                    dbmanager.updateDB(command_update_remember);
-                }
+                    command_update_remember = "UPDATE AccountInfo SET IsRememberAccount = 0 WHERE AccountNumber = \'" + str_account + "\';";
+                dbmanager.updateDB(command_update_remember);
                 String command_upToOnline = "UPDATE AccountInfo SET IsOnline = 1 WHERE AccountNumber = \'" + str_account + "\'";
                 dbmanager.updateDB(command_upToOnline);
+
                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                finish();
                 startActivity(intent);
-                et_password.setText(null);
                 break;
             }
             case R.id.button_tologup:
@@ -133,12 +128,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         dbmanager.closeDB();
     }
 
-    @Override
-    public void onRestart()
-    {
-        super.onRestart();
-//        dbmanager = new DBManager(this);
-//        dbmanager.openDB();
-    }
+//    @Override
+//    public void onRestart()
+//    {
+//        super.onRestart();
+////        dbmanager = new DBManager(this);
+//    }
 
 }
