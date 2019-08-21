@@ -31,6 +31,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         button1.setOnClickListener(this);
         button2.setOnClickListener(this);
         replaceFragment(new BookcaseFragment());
+
+        dbmanager = new DBManager(this);
+        dbmanager.openDB();
+        Log.e("Main", "onCreate");
     }
 
     @Override
@@ -60,18 +64,32 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     @Override
-    public void onStart()
+    public void onDestroy()
     {
-        super.onStart();
-        dbmanager = new DBManager(this);
-        dbmanager.openDB();
-//        Log.e("Login", "onRestart");
+        super.onDestroy();
+        dbmanager.closeDB();
+        Log.e("Main", "onDestroy");
     }
 
-    @Override
-    public void onStop()
-    {
-        super.onStop();
-        dbmanager.closeDB();
-    }
+//    @Override
+//    public void onStart()
+//    {
+//        super.onStart();
+//        Log.e("Main", "onStart");
+//    }
+//
+//    @Override
+//    public void onStop()
+//    {
+//        super.onStop();
+//        Log.e("Main", "onStop");
+//    }
+//
+//    @Override
+//    public void onPause()
+//    {
+//        super.onPause();
+//        Log.e("Main", "onPause");
+//    }
+
 }

@@ -17,16 +17,14 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.cc.creader.DBManager;
-import com.cc.creader.MainActivity;
 import com.cc.creader.R;
 import static com.cc.creader.MainActivity.dbmanager;
 
 public class PersonInfoFragment extends Fragment
 {
     private Cursor cursor;
-    private String onlineID;
-    private String onlineAccount;
+//    private String onlineID;
+//    private String onlineAccount;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -37,17 +35,18 @@ public class PersonInfoFragment extends Fragment
     }
 
     @Override
-    public void onStart()
+    public void onActivityCreated(Bundle savedInstanceState)
     {
-        super.onStart();
-        Log.e("个人中心", "onStart");
-        String command_find_profile = "";
-        cursor = dbmanager.findDB(command_find_profile);
-
-        String command_getOnlineAccount = "SELECT * FROM AccountInfo WHERE IsOnline = 1";
-        cursor = dbmanager.findDB(command_getOnlineAccount);
+        super.onActivityCreated(savedInstanceState);
+        Log.e("个人中心", "onActivityCreated");
+//        String command_find_profile = "";
+//        cursor = dbmanager.findDB(command_find_profile);
+        String command_get_onlineAccount = "SELECT * FROM AccountInfo WHERE IsOnline = 1";
+        cursor = dbmanager.findDB(command_get_onlineAccount);
         cursor.moveToFirst();
         String profileroute = cursor.getString(cursor.getColumnIndex("ProfileRoute"));
+        final String onlineID = cursor.getString(cursor.getColumnIndex("ID"));
+        final String onlineAccount = cursor.getString(cursor.getColumnIndex("AccountNumber"));
         //设置头像
         if (profileroute == null || profileroute.length()==0) //如果ProfileRoute为null或空，即默认头像没有被替换
         {
@@ -59,17 +58,13 @@ public class PersonInfoFragment extends Fragment
             //如果默认头像被替换了，用被替换掉的头像的路径
             //如果按照此路径找不到头像，则还是用默认头像
         }
-
         //设置ID
-        onlineID = cursor.getString(cursor.getColumnIndex("ID"));
         TextView tv_id = (TextView) getActivity().findViewById(R.id.textview_online_id);
         tv_id.setText(onlineID);
-
         //设置账号
-        onlineAccount = cursor.getString(cursor.getColumnIndex("AccountNumber"));
         TextView tv_account = (TextView) getActivity().findViewById(R.id.textview_online_account);
         tv_account.setText(onlineAccount);
-
+        //退出账号监听器
         LinearLayout linearLayout = (LinearLayout) getActivity().findViewById(R.id.layout_logoff);
         linearLayout.setOnClickListener(new View.OnClickListener()
         {
@@ -85,67 +80,66 @@ public class PersonInfoFragment extends Fragment
         });
     }
 
-    @Override
-    public void onAttach(Context context)
-    {
-        super.onAttach(context);
-        Log.e("个人中心", "onAttach");
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState)
-    {
-        super.onCreate(savedInstanceState);
-        Log.e("个人中心", "onCreate");
-    }
-
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState)
-    {
-        super.onActivityCreated(savedInstanceState);
-        Log.e("个人中心", "onActivityCreated");
-    }
-
-    @Override
-    public void onPause()
-    {
-        super.onPause();
-        Log.e("个人中心", "onPause");
-    }
-
-    @Override
-    public void onResume()
-    {
-        super.onResume();
-        Log.e("个人中心", "onResume");
-    }
-
-    @Override
-    public void onStop()
-    {
-        super.onStop();
-        Log.e("个人中心", "onStop");
-    }
-
-    @Override
-    public void onDestroyView()
-    {
-        super.onDestroyView();
-        Log.e("个人中心", "onDestroyView");
-    }
-
-    @Override
-    public void onDestroy()
-    {
-        super.onDestroy();
-        Log.e("个人中心", "onDestroy");
-        cursor.close();
-    }
-
-    @Override
-    public void onDetach()
-    {
-        super.onDetach();
-        Log.e("个人中心", "onDetach");
-    }
+//    @Override
+//    public void onStart()
+//    {
+//        super.onStart();
+//        Log.e("个人中心", "onStart");
+//    }
+//
+//    @Override
+//    public void onDestroy()
+//    {
+//        super.onDestroy();
+//        Log.e("个人中心", "onDestroy");
+//    }
+//
+//    @Override
+//    public void onAttach(Context context)
+//    {
+//        super.onAttach(context);
+//        Log.e("个人中心", "onAttach");
+//    }
+//
+//    @Override
+//    public void onCreate(Bundle savedInstanceState)
+//    {
+//        super.onCreate(savedInstanceState);
+//        Log.e("个人中心", "onCreate");
+//    }
+//
+//    @Override
+//    public void onPause()
+//    {
+//        super.onPause();
+//        Log.e("个人中心", "onPause");
+//    }
+//
+//    @Override
+//    public void onResume()
+//    {
+//        super.onResume();
+//        Log.e("个人中心", "onResume");
+//    }
+//
+//    @Override
+//    public void onStop()
+//    {
+//        super.onStop();
+//        Log.e("个人中心", "onStop");
+//    }
+//
+//    @Override
+//    public void onDestroyView()
+//    {
+//        super.onDestroyView();
+//        Log.e("个人中心", "onDestroyView");
+//    }
+//
+//    @Override
+//    public void onDetach()
+//    {
+//        super.onDetach();
+//        Log.e("个人中心", "onDetach");
+//    }
 }

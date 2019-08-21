@@ -126,17 +126,19 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     @Override
-    public void onRestart()
+    protected void onDestroy()
     {
-        super.onRestart();
-        dbmanager = new DBManager(this);
-        dbmanager.openDB();
+        super.onDestroy();
+        Log.e("Login", "onDestroy");
+        dbmanager.closeDB();
     }
 
     @Override
-    protected void onStop()
+    public void onRestart()
     {
-        super.onStop();
-        dbmanager.closeDB();
+        super.onRestart();
+//        dbmanager = new DBManager(this);
+//        dbmanager.openDB();
     }
+
 }
