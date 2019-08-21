@@ -76,9 +76,7 @@ public class PersonInfoFragment extends Fragment
             @Override
             public void onClick(View v)
             {
-                //这个SQL命令已经包含了两个表的操作
-                String command_toLogoff = "UPDATE AccountInfo SET IsOnline = 0 WHERE IsOnline = 1;"
-                        + "DELETE FROM OnlineID;";
+                String command_toLogoff = "UPDATE AccountInfo SET IsOnline = 0 WHERE IsOnline = 1;";
                 dbmanager.updateDB(command_toLogoff);
                 Toast.makeText(getActivity(), "退出成功", Toast.LENGTH_SHORT).show();
                 //返回栈这里要多注意，是直接销毁，还是创建一个新活动，或者把返回栈栈底的活动出栈

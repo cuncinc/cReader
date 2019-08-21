@@ -41,7 +41,7 @@
                 />
 
             <CheckBox
-                android:id="@+id/remember_pass"
+                android:id="@+id/checkbox_remember_pass"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="记住密码"

@@ -8,6 +8,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.Checkable;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -32,17 +34,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         b_tologup.setOnClickListener(this);
 
         dbmanager = new DBManager(this);
-        //首次执行导入.db文件
         dbmanager.openDB();
-    }
-
-    @Override
-    public void onRestart()
-    {
-        super.onRestart();
-        dbmanager = new DBManager(this);
-        dbmanager.openDB();
-        Log.e("Login", "onRestart");
     }
 
     @Override
@@ -54,6 +46,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             {
                 String str_account = et_account.getText().toString();
                 String str_password = et_password.getText().toString();
+                CheckBox checkBox = (CheckBox)findViewById(R.id.checkbox_remember_pass);
 
                 if (null==str_account || 0==str_account.length())
                 {
@@ -68,8 +61,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 {
                     AlertDialog.Builder dialog = new AlertDialog.Builder(LoginActivity.this);
                     dialog.setMessage("账号未注册！");
-                    et_account.setText("");
-                    et_password.setText("");
+                    et_account.setText(null);
+                    et_password.setText(null);
                     dialog.show();
                     cursor.close();
                     break;
@@ -83,14 +76,22 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     cursor.close();
                     break;
                 }
-                //既在AccountInfo更新了IsOnline，也在OnlineID中增加了信息
-                int onlineID = cursor.getInt(cursor.getColumnIndex("ID"));
-                String command_addToOnline = "INSERT INTO OnlineID(ID, AccountNumber) VALUES (" + onlineID + ", \'" + str_account + "\');";
+
+                if (checkBox.isChecked()) //如果记住了密码
+                {
+                    String command_update_remember = "UPDATE AccountInfo SET IsRememberAccount = 1 WHERE AccountNumber = \'" + str_account + "\';";
+                    dbmanager.updateDB(command_update_remember);
+                }
+                else    //没有记住密码
+                {
+                    String command_update_remember = "UPDATE AccountInfo SET IsRememberAccount = 0 WHERE AccountNumber = \'" + str_account + "\';";
+                    dbmanager.updateDB(command_update_remember);
+                }
                 String command_upToOnline = "UPDATE AccountInfo SET IsOnline = 1 WHERE AccountNumber = \'" + str_account + "\'";
-                dbmanager.createDB(command_addToOnline);
                 dbmanager.updateDB(command_upToOnline);
                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                 startActivity(intent);
+                et_password.setText(null);
                 break;
             }
             case R.id.button_tologup:
@@ -115,9 +116,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 if (resultCode==RESULT_OK)
                 {
                     String return_account = data.getStringExtra("str_logup_account");
-                    Log.e("return_account", return_account);
                     et_account.setText(return_account);
-                    et_password.setText("");
+                    et_password.setText(null);
                 }
             }
             default:
@@ -126,18 +126,17 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     @Override
+    public void onRestart()
+    {
+        super.onRestart();
+        dbmanager = new DBManager(this);
+        dbmanager.openDB();
+    }
+
+    @Override
     protected void onStop()
     {
         super.onStop();
         dbmanager.closeDB();
-        Log.e("Login","onStop");
-    }
-
-    @Override
-    protected void onDestroy()
-    {
-        super.onDestroy();
-        dbmanager.closeDB();
-        Log.e("Login", "onDestroy");
     }
 }

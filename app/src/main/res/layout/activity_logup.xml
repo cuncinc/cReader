@@ -41,7 +41,7 @@
             android:layout_height="wrap_content"
             android:inputType="textPassword"
             android:ems="10"
-            android:hint="重复密码"
+            android:hint="确认密码"
             android:maxLines="1"/>
 
         <Button

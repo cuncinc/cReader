@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class LogupActivity extends AppCompatActivity implements View.OnClickListener
 {
@@ -70,7 +71,7 @@ public class LogupActivity extends AppCompatActivity implements View.OnClickList
                     AlertDialog.Builder dialog = new AlertDialog.Builder(LogupActivity.this);
                     dialog.setMessage("此账号已被注册");
                     dialog.show();
-                    et_logup_account.setText("");
+                    et_logup_account.setText(null);
                 }
                 else if (null==str_logup_password || 0==str_logup_password.length()) //有一个方法，能同时判断非null非空
                 {
@@ -84,7 +85,7 @@ public class LogupActivity extends AppCompatActivity implements View.OnClickList
                     AlertDialog.Builder dialog = new AlertDialog.Builder(LogupActivity.this);
                     dialog.setMessage("两次输入的密码不相同，请再次输入！");
                     dialog.show();
-                    et_logup_password_again.setText("");
+                    et_logup_password_again.setText(null);
                 }
                 else
                 {
@@ -95,17 +96,20 @@ public class LogupActivity extends AppCompatActivity implements View.OnClickList
                     AlertDialog.Builder dialog = new AlertDialog.Builder(LogupActivity.this);
                     dialog.setMessage("注册成功！");
                     dialog.setCancelable(true);
-//                    dialog.setOnCancelListener()  //这个怎么用
+                    dialog.setOnCancelListener(new DialogInterface.OnCancelListener()
+                    {
+                        @Override
+                        public void onCancel(DialogInterface dialog)
+                        {
+                            toLogin();
+                        }
+                    });  //这个怎么用
                     dialog.setPositiveButton("去登录", new DialogInterface.OnClickListener()
                     {
                         @Override
                         public void onClick(DialogInterface dialog, int which)
                         {
-                            Intent intent = new Intent();
-                            intent.putExtra("str_logup_account", str_logup_account);
-                            setResult(RESULT_OK, intent);
-                            Log.e("Logup_str", str_logup_account);
-                            finish();
+                            toLogin();
                         }
                     });
                     dialog.show();
@@ -118,23 +122,18 @@ public class LogupActivity extends AppCompatActivity implements View.OnClickList
         }
     }
 
-//    @Override
-//    public void onBackPressed()
-//    {
-//        Intent intent = new Intent();
-//        intent.putExtra("str_logup_account", str_logup_account);
-//        setResult(RESULT_OK, intent);
-//        finish();
-//    }
-
     @Override
     protected void onDestroy()
     {
         super.onDestroy();
         dbmanager.closeDB();
-//        Intent intent = new Intent();
-//        intent.putExtra("str_logup_account", str_logup_account);
-//        setResult(RESULT_OK, intent);
-        Log.e("Logup", "onDestroy");
+    }
+
+    private void toLogin()
+    {
+        Intent intent = new Intent();
+        intent.putExtra("str_logup_account", str_logup_account);
+        setResult(RESULT_OK, intent);
+        finish();
     }
 }
