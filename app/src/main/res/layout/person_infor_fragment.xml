@@ -42,7 +42,8 @@
     <ImageView
         android:contentDescription="线长"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:background="@drawable/line"/>
 
     <LinearLayout
         android:contentDescription="个人信息"
@@ -72,9 +73,13 @@
         </LinearLayout>
 
         <ImageView
+
             android:contentDescription="线短"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:background="@drawable/line"
+            android:layout_marginLeft="@dimen/personinfo_left_margin"
+            android:layout_marginRight="@dimen/personinfo_left_margin"/>
 
         <LinearLayout
             android:contentDescription="邮箱"
@@ -97,9 +102,12 @@
         </LinearLayout>
 
         <ImageView
-            android:contentDescription="短"
+            android:contentDescription="线短"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:background="@drawable/line"
+            android:layout_marginLeft="@dimen/personinfo_left_margin"
+            android:layout_marginRight="@dimen/personinfo_left_margin"/>
 
         <LinearLayout
             android:contentDescription="手机"
@@ -125,7 +133,10 @@
         <ImageView
             android:contentDescription="线短"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:background="@drawable/line"
+            android:layout_marginLeft="@dimen/personinfo_left_margin"
+            android:layout_marginRight="@dimen/personinfo_left_margin"/>
 
         <LinearLayout
             android:contentDescription="签名"
@@ -151,10 +162,16 @@
     <ImageView
         android:contentDescription="线长"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:background="@drawable/line"/>
     <Space
         android:layout_width="match_parent"
         android:layout_height="@dimen/personinfo_space_distance"/>
+    <ImageView
+        android:contentDescription="线长"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/line"/>
 
     <LinearLayout
         android:contentDescription="修改密码"
@@ -174,14 +191,16 @@
     <ImageView
         android:contentDescription="线长"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:background="@drawable/line"/>
     <Space
         android:layout_width="match_parent"
         android:layout_height="@dimen/personinfo_space_distance"/>
     <ImageView
         android:contentDescription="线长"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:background="@drawable/line"/>
     
     <LinearLayout
         android:id="@+id/layout_logoff"
@@ -203,6 +222,7 @@
     <ImageView
         android:contentDescription="线长"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:background="@drawable/line"/>
 
 </LinearLayout>
