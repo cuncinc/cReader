@@ -90,6 +90,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 String command_upToOnline = "UPDATE AccountInfo SET IsOnline = 1 WHERE AccountNumber = \'" + str_account + "\'";
                 dbmanager.updateDB(command_upToOnline);
                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                finish();
                 startActivity(intent);
                 et_password.setText(null);
                 break;
@@ -133,12 +134,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         dbmanager.closeDB();
     }
 
-    @Override
-    public void onRestart()
-    {
-        super.onRestart();
-//        dbmanager = new DBManager(this);
-//        dbmanager.openDB();
-    }
+//    @Override
+//    public void onRestart()
+//    {
+//        super.onRestart();
+//        //dbmanager = new DBManager(this);
+//        //dbmanager.openDB();
+//    }
 
 }
