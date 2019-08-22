@@ -12,13 +12,7 @@
     <ImageView
         android:id="@+id/imageview_splash"
         android:layout_width="match_parent"
-        android:layout_height="420dp"
-        android:background="#001001"/>
+        android:layout_height="match_parent"
+        android:background="@drawable/splash"/>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="1234567890\ncom.cc.creader.SplashActivity"
-        android:textColor="#DB6958"
-        android:textSize="30sp"/>
 </FrameLayout>

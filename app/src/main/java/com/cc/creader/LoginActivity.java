@@ -128,6 +128,16 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         dbmanager.closeDB();
     }
 
+    @Override
+    public void onBackPressed()
+    {
+        //退出时再启动不会再显示splash界面
+        Intent intent = new Intent(Intent.ACTION_MAIN);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.addCategory(Intent.CATEGORY_HOME);
+        startActivity(intent);
+    }
+
 //    @Override
 //    public void onRestart()
 //    {
