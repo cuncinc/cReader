@@ -44,11 +44,11 @@ public class PersonInfoFragment extends Fragment
         String command_get_onlineAccount = "SELECT * FROM AccountInfo WHERE IsOnline = 1";
         cursor = dbmanager.findDB(command_get_onlineAccount);
         cursor.moveToFirst();
-        String profileroute = cursor.getString(cursor.getColumnIndex("ProfileRoute"));
+        String profile_route = cursor.getString(cursor.getColumnIndex("ProfileRoute"));
         final String onlineID = cursor.getString(cursor.getColumnIndex("ID"));
         final String onlineAccount = cursor.getString(cursor.getColumnIndex("AccountNumber"));
         //设置头像
-        if (profileroute==null || profileroute.length()==0) //如果ProfileRoute为null或空，即默认头像没有被替换
+        if (profile_route==null || profile_route.length()==0) //如果ProfileRoute为null或空，即默认头像没有被替换
         {
             ImageView ima_profile = (ImageView) getActivity().findViewById(R.id.image_profile);
             ima_profile.setImageResource(R.drawable.default_profile);
@@ -77,6 +77,16 @@ public class PersonInfoFragment extends Fragment
                 Intent intent = new Intent(getActivity(), LoginActivity.class);
                 getActivity().finish();
                 startActivity(intent);
+            }
+        });
+        //修改密码监听器
+        LinearLayout layout_modifypass = (LinearLayout) getActivity().findViewById(R.id.layout_modifypass);
+        layout_modifypass.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                //修改密码的逻辑
             }
         });
     }

@@ -4,6 +4,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
+    <!--这些线太宽了-->
 
     <LinearLayout
         android:contentDescription="头像"
@@ -174,7 +175,7 @@
         android:background="@drawable/line"/>
 
     <LinearLayout
-        android:contentDescription="修改密码"
+        android:id="@+id/layout_modifypass"
         android:background="@color/colorWhite"
         android:layout_width="match_parent"
         android:layout_height="@dimen/personinfo_list_distance"
