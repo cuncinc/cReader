@@ -13,17 +13,12 @@ public class SplashActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
+        setTheme(R.style.SplashTheme);
         super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_splash);
-//    }
-//
-//    @Override
-//    protected void onStart()
-//    {
-//        super.onStart();
         DBManager dbmanager = new DBManager(this);
-        String command_get_online = "SELECT * FROM AccountInfo WHERE IsOnline = 1;";
-        Cursor cursor = dbmanager.findDB(command_get_online);
+//        String command_get_online = "SELECT * FROM AccountInfo WHERE IsOnline = 1;";
+//        Cursor cursor = dbmanager.findDB(command_get_online);
+        Cursor cursor = dbmanager.findDB("SELECT * FROM AccountInfo WHERE IsOnline = 1;");
 
         if (cursor.moveToFirst())   //若有账号在线的
             intent = new Intent(SplashActivity.this, MainActivity.class);
@@ -32,17 +27,19 @@ public class SplashActivity extends AppCompatActivity
 
         dbmanager.closeDB();
         cursor.close();
-//        finish();
-//        startActivity(intent);
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable()
-        {
-            @Override
-            public void run()
-            {
-                startActivity(intent);
-                finish();
-            }
-        }, 1500);
+
+        startActivity(intent);
+        finish();
+//        Handler handler = new Handler();
+//        handler.postDelayed(new Runnable()
+//        {
+//            @Override
+//            public void run()
+//            {
+//                startActivity(intent);
+//                finish();
+//            }
+//        }, 200);   //bug：不能延时，不然会有黑屏
+//                    //bug解决，图片太大，压缩一下
     }
 }
