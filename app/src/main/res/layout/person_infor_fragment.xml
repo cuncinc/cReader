@@ -4,7 +4,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
-    <!--这些线太宽了-->
 
     <LinearLayout
         android:contentDescription="头像"
@@ -40,11 +39,10 @@
         </LinearLayout>
     </LinearLayout>
 
-    <ImageView
-        android:contentDescription="线长"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/line"/>
+    <View android:layout_width="match_parent"
+          android:layout_height="0.5dp"
+          android:alpha="0.6"
+          android:background="@android:color/darker_gray"/>
 
     <LinearLayout
         android:contentDescription="个人信息"
@@ -73,12 +71,13 @@
                 android:layout_marginLeft="@dimen/personinfo_right_margin"/>
         </LinearLayout>
 
-        <ImageView
 
+        <View
             android:contentDescription="线短"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/line"
+            android:layout_height="0.5dp"
+            android:alpha="0.6"
+            android:background="@android:color/darker_gray"
             android:layout_marginLeft="@dimen/personinfo_left_margin"
             android:layout_marginRight="@dimen/personinfo_left_margin"/>
 
@@ -102,11 +101,12 @@
                 />
         </LinearLayout>
 
-        <ImageView
+        <View
             android:contentDescription="线短"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/line"
+            android:layout_height="0.5dp"
+            android:alpha="0.6"
+            android:background="@android:color/darker_gray"
             android:layout_marginLeft="@dimen/personinfo_left_margin"
             android:layout_marginRight="@dimen/personinfo_left_margin"/>
 
@@ -131,11 +131,12 @@
                 />
             </LinearLayout>
 
-        <ImageView
+        <View
             android:contentDescription="线短"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/line"
+            android:layout_height="0.5dp"
+            android:alpha="0.6"
+            android:background="@android:color/darker_gray"
             android:layout_marginLeft="@dimen/personinfo_left_margin"
             android:layout_marginRight="@dimen/personinfo_left_margin"/>
 
@@ -160,19 +161,17 @@
 
     </LinearLayout>
 
-    <ImageView
-        android:contentDescription="线长"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/line"/>
+    <View android:layout_width="match_parent"
+          android:layout_height="0.5dp"
+          android:alpha="0.6"
+          android:background="@android:color/darker_gray"/>
     <Space
         android:layout_width="match_parent"
         android:layout_height="@dimen/personinfo_space_distance"/>
-    <ImageView
-        android:contentDescription="线长"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/line"/>
+    <View android:layout_width="match_parent"
+          android:layout_height="0.5dp"
+          android:alpha="0.6"
+          android:background="@android:color/darker_gray"/>
 
     <LinearLayout
         android:id="@+id/layout_modifypass"
@@ -189,19 +188,17 @@
             android:textColor="#000000"/>
     </LinearLayout>
 
-    <ImageView
-        android:contentDescription="线长"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/line"/>
+    <View android:layout_width="match_parent"
+          android:layout_height="0.5dp"
+          android:alpha="0.6"
+          android:background="@android:color/darker_gray"/>
     <Space
         android:layout_width="match_parent"
         android:layout_height="@dimen/personinfo_space_distance"/>
-    <ImageView
-        android:contentDescription="线长"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/line"/>
+    <View android:layout_width="match_parent"
+          android:layout_height="0.5dp"
+          android:alpha="0.6"
+          android:background="@android:color/darker_gray"/>
     
     <LinearLayout
         android:id="@+id/layout_logoff"
@@ -220,10 +217,9 @@
             />
     </LinearLayout>
 
-    <ImageView
-        android:contentDescription="线长"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/line"/>
+    <View android:layout_width="match_parent"
+          android:layout_height="0.5dp"
+          android:alpha="0.6"
+          android:background="@android:color/darker_gray"/>
 
 </LinearLayout>

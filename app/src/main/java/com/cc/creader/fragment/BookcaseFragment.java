@@ -32,7 +32,7 @@ public class BookcaseFragment extends Fragment
     {
         super.onStart();
         editText = (EditText) getActivity().findViewById(R.id.edittext_bookcase);
-        editText.setText("是大大笨猪");
+        editText.setText("123");
         button = (Button) getActivity().findViewById(R.id.button_getstring);
         button.setOnClickListener(new View.OnClickListener()
         {

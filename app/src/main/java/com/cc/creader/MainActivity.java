@@ -5,61 +5,94 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.cc.creader.fragment.BookcaseFragment;
+import com.cc.creader.fragment.BookmaketFragment;
 import com.cc.creader.fragment.PersonInfoFragment;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener
+public class MainActivity extends AppCompatActivity implements RadioGroup.OnCheckedChangeListener
 {
     public static DBManager dbmanager;
+    private RadioGroup rg_tab_bar;
+    private RadioButton rb_home;
+
+    //Fragment Object
+    private Fragment fg_bookmaket, fg_bookshelf, fg_personinfo;
+    private FragmentManager fManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-//        getSupportActionBar().hide();
-        Button button1 = (Button)findViewById(R.id.button_bookcase);
-        Button button2 = (Button)findViewById(R.id.button_person_info);
-        button1.setOnClickListener(this);
-        button2.setOnClickListener(this);
-        replaceFragment(new BookcaseFragment());
-
         dbmanager = new DBManager(this);
         Log.e("Main", "onCreate");
+
+        fManager = getSupportFragmentManager();
+        rg_tab_bar = (RadioGroup) findViewById(R.id.rg_tab_bar);
+        rg_tab_bar.setOnCheckedChangeListener(this);
+        //获取第一个单选按钮，并设置其为选中状态
+        rb_home = (RadioButton) findViewById(R.id.radio_button_bookmaket);
+        rb_home.setChecked(true);
     }
 
     @Override
-    public void onClick(View v)
+    public void onCheckedChanged(RadioGroup group, int checkedId)
     {
-        switch (v.getId())
+        FragmentTransaction fTransaction = fManager.beginTransaction();
+        hideAllFragment(fTransaction);
+        switch (checkedId)
         {
-            //这里有点不对。如果bookcase已经显示在界面上，按下切换到bookcase按钮时，
-            // bookcase碎片就会重新加载，所有信息重置，会经历一个完整的生命周期。person也是一样
-            case R.id.button_bookcase:
-                replaceFragment(new BookcaseFragment());
+            case R.id.radio_button_bookmaket:
+                if(fg_bookmaket == null)
+                {
+                    fg_bookmaket = new BookmaketFragment();
+                    fTransaction.add(R.id.fragment_layout,fg_bookmaket);
+                }
+                else
+                {
+                    fTransaction.show(fg_bookmaket);
+                }
                 break;
-            case R.id.button_person_info:
-                replaceFragment(new PersonInfoFragment());
+            case R.id.radio_button_bookshelf:
+                if(fg_bookshelf == null)
+                {
+                    fg_bookshelf = new BookcaseFragment();
+                    fTransaction.add(R.id.fragment_layout,fg_bookshelf);
+                }
+                else
+                {
+                    fTransaction.show(fg_bookshelf);
+                }
                 break;
-            default:
+            case R.id.radio_button_personinfo:
+                if(fg_personinfo == null){
+                    fg_personinfo = new PersonInfoFragment();
+                    fTransaction.add(R.id.fragment_layout,fg_personinfo);
+                }
+                else
+                {
+                    fTransaction.show(fg_personinfo);
+                }
                 break;
         }
+        fTransaction.commit();
     }
 
-    private void replaceFragment(Fragment fragment)
+    //隐藏所有Fragment
+    private void hideAllFragment(FragmentTransaction fragmentTransaction)
     {
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.fragment_layout, fragment);
-        transaction.commit();
+        if(fg_bookmaket != null)fragmentTransaction.hide(fg_bookmaket);
+        if(fg_bookshelf != null)fragmentTransaction.hide(fg_bookshelf);
+        if(fg_personinfo != null)fragmentTransaction.hide(fg_personinfo);
     }
 
     @Override

@@ -1,52 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.cc.creader.MainActivity">
+    android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+    <View android:layout_width="match_parent"
+          android:layout_height="0.5dp"
+          android:alpha="0.6"
+          android:background="@android:color/darker_gray"/>
 
-            <FrameLayout
-                android:id="@+id/fragment_layout"
+    <FrameLayout
+        android:id="@+id/fragment_layout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+    </FrameLayout>
+
+    <RadioGroup
+        android:id="@+id/rg_tab_bar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:background="@android:color/white">
+
+            <RadioButton
+                android:id="@+id/radio_button_bookmaket"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="12" >
-            </FrameLayout>
+                android:layout_height="match_parent"
+                android:text="书城"
+                android:drawableTop="@drawable/tab_menu_bookmaket"
+                style="@style/RadioGroupButtonStyle"/>
 
-
-            <LinearLayout
+            <RadioButton
+                android:id="@+id/radio_button_bookshelf"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:orientation="horizontal">
+                android:layout_height="wrap_content"
+                android:text="书架"
+                android:drawableTop="@drawable/tab_menu_bookshelf"
+                style="@style/RadioGroupButtonStyle"/>
 
-                <Button
-                    android:id="@+id/button_bookcase"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:text="书架"
-                    android:background="#1B86DB"/>
-
-                <Button
-                    android:id="@+id/button_person_info"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:text="我的"
-                    android:background="#165380"/>
-
-            </LinearLayout>
-
-
-        </LinearLayout>
-
-</RelativeLayout>
+            <RadioButton
+                android:id="@+id/radio_button_personinfo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="我的"
+                android:drawableTop="@drawable/tab_menu_personinfo"
+                style="@style/RadioGroupButtonStyle"/>
+    </RadioGroup>
+</LinearLayout>
