@@ -1,58 +1,128 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_logup"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingTop="@dimen/activity_horizontal_margin"
     tools:context="com.cc.creader.LogupActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="horizontal"
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="5dp">
+        <ImageView
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="@dimen/personinfo_left_margin"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/icon_account"
+            android:scaleType="centerInside"/>
 
         <EditText
             android:id="@+id/editText_logup_account"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/personinfo_left_margin"
+            android:background="@null"
             android:inputType="none"
-            android:ems="10"
             android:hint="账号"
             android:textColorLink="?attr/colorControlHighlight"
-            android:maxLines="1"/>
+            android:maxLines="1"
+            android:maxLength="16"/>
+    </LinearLayout>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:alpha="0.6"
+        android:background="@android:color/darker_gray"
+        android:layout_marginLeft="@dimen/personinfo_left_margin"
+        android:layout_marginRight="@dimen/personinfo_left_margin"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="5dp"
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="@dimen/personinfo_left_margin"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/icon_password"
+            android:scaleType="centerInside"/>
         <EditText
             android:id="@+id/editText_logup_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@null"
             android:inputType="textPassword"
-            android:ems="10"
             android:hint="密码"
-            android:maxLines="1"/>
+            android:maxLines="1"
+            android:maxLength="16"/>
+    </LinearLayout>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:alpha="0.6"
+        android:background="@android:color/darker_gray"
+        android:layout_marginLeft="@dimen/personinfo_left_margin"
+        android:layout_marginRight="@dimen/personinfo_left_margin"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="5dp"
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="@dimen/personinfo_left_margin"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/icon_password"
+            android:scaleType="centerInside"/>
         <EditText
             android:id="@+id/editText_logup_password_again"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@null"
             android:inputType="textPassword"
-            android:ems="10"
             android:hint="确认密码"
-            android:maxLines="1"/>
-
-        <Button
-            android:id="@+id/button_logup"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="注 册"
-            android:textSize="15sp"
-            android:textColor="#FFFFFF"
-            android:background="@color/colorTimLoginButton"/>
-
+            android:maxLines="1"
+            android:maxLength="16"/>
     </LinearLayout>
 
-</RelativeLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:alpha="0.6"
+        android:background="@android:color/darker_gray"
+        android:layout_marginLeft="@dimen/personinfo_left_margin"
+        android:layout_marginRight="@dimen/personinfo_left_margin"/>
+
+    <Button
+        android:id="@+id/button_logup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/personinfo_left_margin"
+        android:layout_marginRight="@dimen/personinfo_left_margin"
+        android:layout_marginTop="30dp"
+        android:text="注 册"
+        android:textSize="15sp"
+        android:textColor="#FFFFFF"
+        android:background="@color/colorTimLoginButton"/>
+
+</LinearLayout>

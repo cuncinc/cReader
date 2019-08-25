@@ -17,7 +17,6 @@ import com.cc.creader.R;
 public class BookcaseFragment extends Fragment
 {
     private View view;
-    private EditText editText;
     private Button button;
 
     @Override
@@ -31,15 +30,13 @@ public class BookcaseFragment extends Fragment
     public void onStart()
     {
         super.onStart();
-        editText = (EditText) getActivity().findViewById(R.id.edittext_bookcase);
-        editText.setText("123");
         button = (Button) getActivity().findViewById(R.id.button_getstring);
         button.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
             {
-                editText.setText("点击了按钮");
+
             }
         });
     }
