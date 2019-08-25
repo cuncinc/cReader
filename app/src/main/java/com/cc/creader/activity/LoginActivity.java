@@ -1,4 +1,4 @@
-package com.cc.creader;
+package com.cc.creader.activity;
 
 import android.content.Intent;
 import android.database.Cursor;
@@ -9,9 +9,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.Checkable;
 import android.widget.EditText;
-import android.widget.Toast;
+
+import com.cc.creader.lib.DBManager;
+import com.cc.creader.R;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener
 {

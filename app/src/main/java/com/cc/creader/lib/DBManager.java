@@ -1,8 +1,10 @@
-package com.cc.creader;
+package com.cc.creader.lib;
 
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+
+import com.cc.creader.R;
 
 import java.io.File;
 import java.io.FileNotFoundException;

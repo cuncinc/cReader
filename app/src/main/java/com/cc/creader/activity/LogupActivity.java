@@ -1,17 +1,17 @@
-package com.cc.creader;
+package com.cc.creader.activity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
-import android.preference.DialogPreference;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
+
+import com.cc.creader.lib.DBManager;
+import com.cc.creader.R;
 
 public class LogupActivity extends AppCompatActivity implements View.OnClickListener
 {

@@ -1,4 +1,4 @@
-package com.cc.creader;
+package com.cc.creader.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,13 +7,11 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.Toast;
 
+import com.cc.creader.lib.DBManager;
+import com.cc.creader.R;
 import com.cc.creader.fragment.BookcaseFragment;
 import com.cc.creader.fragment.BookmaketFragment;
 import com.cc.creader.fragment.PersonInfoFragment;

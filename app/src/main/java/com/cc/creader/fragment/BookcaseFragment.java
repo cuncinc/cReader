@@ -1,23 +1,26 @@
 package com.cc.creader.fragment;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Toast;
+import android.widget.ImageView;
 
-import com.cc.creader.MainActivity;
 import com.cc.creader.R;
+import com.cc.creader.lib.FileUtils;
+
+import java.util.ArrayList;
 
 public class BookcaseFragment extends Fragment
 {
     private View view;
     private Button button;
+    private ArrayList<String> file_routes;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -30,13 +33,35 @@ public class BookcaseFragment extends Fragment
     public void onStart()
     {
         super.onStart();
-        button = (Button) getActivity().findViewById(R.id.button_getstring);
+
+        ImageView add_book = (ImageView) getActivity().findViewById(R.id.imageView_add_book);
+        add_book.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                //加书籍的fragment
+            }
+        });
+
+        button = (Button) getActivity().findViewById(R.id.button_test);
         button.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
             {
-
+                new Thread(new Runnable()
+                {
+                    @Override
+                    public void run()
+                    {
+                        file_routes = FileUtils.getSpecificTypeOfFile(getActivity(), new String[]{".txt"});
+                        for (int i=0; i<file_routes.size(); ++i)
+                        {
+                            Log.e("file_route", file_routes.get(i));
+                        }
+                    }
+                }).start();
             }
         });
     }
