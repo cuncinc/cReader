@@ -32,11 +32,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@null"
-                android:inputType="none"
+                android:inputType="textNoSuggestions"
+                android:digits="0123456789abcdefghijklmnopqrstuvwxyz"
                 android:hint="账号"
-                android:textColorLink="?attr/colorControlHighlight"
                 android:maxLines="1"
-                android:maxLength="16"/>
+                android:maxLength="16"
+                android:imeOptions="actionNext"
+                android:nextFocusForward="@+id/editText_password"/>
         </LinearLayout>
         <View
             android:layout_width="match_parent"
@@ -65,9 +67,11 @@
                 android:layout_height="wrap_content"
                 android:background="@null"
                 android:inputType="textPassword"
+                android:digits="0123456789abcdefghijklmnopqrstuvwxyz"
                 android:hint="密码"
                 android:maxLines="1"
-                android:maxLength="16"/>
+                android:maxLength="16"
+                android:imeOptions="actionDone"/>
         </LinearLayout>
         <View
             android:layout_width="match_parent"
