@@ -2,12 +2,18 @@ package com.cc.creader.fragment;
 
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.support.design.widget.BottomSheetBehavior;
+import android.support.design.widget.BottomSheetDialog;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -15,11 +21,18 @@ import android.widget.Toast;
 
 import com.cc.creader.activity.LoginActivity;
 import com.cc.creader.R;
+
+import java.io.File;
+
 import static com.cc.creader.activity.MainActivity.dbmanager;
 
 public class PersonInfoFragment extends Fragment
 {
     private Cursor cursor;
+    private BottomSheetDialog dialog;
+    private String onlineID;
+    private String onlineAccount;
+    private String profile_route;
 //    private String onlineID;
 //    private String onlineAccount;
 
@@ -39,26 +52,12 @@ public class PersonInfoFragment extends Fragment
         String command_get_onlineAccount = "SELECT * FROM AccountInfo WHERE IsOnline = 1";
         cursor = dbmanager.findDB(command_get_onlineAccount);
         cursor.moveToFirst();
-        String profile_route = cursor.getString(cursor.getColumnIndex("ProfileRoute"));
-        final String onlineID = cursor.getString(cursor.getColumnIndex("ID"));
-        final String onlineAccount = cursor.getString(cursor.getColumnIndex("AccountNumber"));
-        //设置头像
-        if (profile_route==null || profile_route.length()==0) //如果ProfileRoute为null或空，即默认头像没有被替换
-        {
-            ImageView ima_profile = (ImageView) getActivity().findViewById(R.id.image_profile);
-            ima_profile.setImageResource(R.drawable.default_profile);
-        }
-        else
-        {
-            //如果默认头像被替换了，用被替换掉的头像的路径
-            //如果按照此路径找不到头像，则还是用默认头像
-        }
-        //设置ID
-        TextView tv_id = (TextView) getActivity().findViewById(R.id.textview_online_id);
-        tv_id.setText(onlineID);
-        //设置账号
-        TextView tv_account = (TextView) getActivity().findViewById(R.id.textview_online_account);
-        tv_account.setText(onlineAccount);
+        profile_route = cursor.getString(cursor.getColumnIndex("ProfileRoute"));
+        onlineID = cursor.getString(cursor.getColumnIndex("ID"));
+        onlineAccount = cursor.getString(cursor.getColumnIndex("AccountNumber"));
+
+        initView();
+
         //退出账号监听器
         LinearLayout linearLayout = (LinearLayout) getActivity().findViewById(R.id.layout_logoff);
         linearLayout.setOnClickListener(new View.OnClickListener()
@@ -74,6 +73,7 @@ public class PersonInfoFragment extends Fragment
                 startActivity(intent);
             }
         });
+
         //修改密码监听器
         LinearLayout layout_modifypass = (LinearLayout) getActivity().findViewById(R.id.layout_modifypass);
         layout_modifypass.setOnClickListener(new View.OnClickListener()
@@ -81,9 +81,92 @@ public class PersonInfoFragment extends Fragment
             @Override
             public void onClick(View v)
             {
-                //修改密码的逻辑
+                showModiPassDialog();
             }
         });
+    }
+
+    private void initView()
+    {
+        //设置头像
+        ImageView ima_profile = (ImageView) getActivity().findViewById(R.id.image_profile);
+        if (profile_route==null || profile_route.length()==0 || !fileIsExists(profile_route)) //如果ProfileRoute为null或空，即默认头像没有被替换；或者文件不存在
+        {
+            ima_profile.setImageResource(R.drawable.default_profile);
+        }
+        else
+        {
+            //如果默认头像被替换了，用被替换掉的头像的路径
+            Bitmap bitmap = BitmapFactory.decodeFile(profile_route);
+            ima_profile.setImageBitmap(bitmap);
+        }
+        //设置ID
+        TextView tv_id = (TextView) getActivity().findViewById(R.id.textview_online_id);
+        tv_id.setText(onlineID);
+        //设置账号
+        TextView tv_account = (TextView) getActivity().findViewById(R.id.textview_online_account);
+        tv_account.setText(onlineAccount);
+    }
+
+    public boolean fileIsExists(String strFile)
+    {
+        try
+        {
+            File f = new File(strFile);
+            if (!f.exists())
+            {
+                return false;
+            }
+        }
+        catch (Exception e)
+        {
+            return false;
+        }
+        return true;
+    }
+
+    private void showModiPassDialog()
+    {
+        dialog = new BottomSheetDialog(getActivity());
+        View commentView = LayoutInflater.from(getActivity()).inflate(R.layout.modi_pass_layout,null);
+        final EditText et_oldpass = (EditText) commentView.findViewById(R.id.editText_oldPass);
+        final EditText et_newpass = (EditText) commentView.findViewById(R.id.editText_newPass);
+        final EditText et_newpass_again = (EditText) commentView.findViewById(R.id.editText_newPass_again);
+        Button bt_modipass = (Button) commentView.findViewById(R.id.button_modi_pass);
+        dialog.setContentView(commentView);
+        //显示不全问题
+        View parent = (View) commentView.getParent();
+        BottomSheetBehavior behavior = BottomSheetBehavior.from(parent);
+        commentView.measure(0,0);
+        behavior.setPeekHeight(commentView.getMeasuredHeight());
+        bt_modipass.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                String oldpass = et_oldpass.getText().toString();
+                String newpass = et_newpass.getText().toString();
+                String newpass_again = et_newpass_again.getText().toString();
+                String passInDB = cursor.getString(cursor.getColumnIndex("PassWord"));
+
+                if(!passInDB.equals(oldpass))
+                {
+                    Toast.makeText(getActivity(),"原密码错误，请重新输入",Toast.LENGTH_SHORT).show();
+                }
+                else if (!newpass.equals(newpass_again))
+                {
+                    Toast.makeText(getActivity(),"两次密码不同，请重新输入",Toast.LENGTH_SHORT).show();
+                }
+                else
+                {
+                    dialog.dismiss();
+                    String command_update_pass = "UPDATE AccountInfo SET PassWord = \'" + newpass + "\' WHERE ID = " + onlineID;
+                    dbmanager.updateDB(command_update_pass);
+                    Toast.makeText(getActivity(),"修改成功",Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        dialog.show();
     }
 
 //    @Override

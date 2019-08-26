@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorPrimary">#0F8CFF</color>
+    <color name="colorPrimaryDark">#445CC5</color>
+    <color name="colorAccent">#FFC400</color>
     <color name="colorTimLoginButton">#0188FB</color>
     <color name="colorDuokanSpace">#F8F8F8</color>
     <color name="colorWhite">#FFFFFF</color>

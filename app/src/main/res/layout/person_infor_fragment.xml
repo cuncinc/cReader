@@ -6,36 +6,37 @@
                 android:orientation="vertical">
 
     <LinearLayout
-        android:contentDescription="头像"
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="5dp">
+
         <ImageView
-            android:contentDescription="头像"
-            android:layout_gravity="center_horizontal"
             android:id="@+id/image_profile"
+            android:layout_gravity="center_horizontal"
             android:layout_width="100dp"
-            android:layout_height="100dp"/>
+            android:layout_height="100dp"
+            android:scaleType="centerCrop"/>
+
         <LinearLayout
-            android:contentDescription="为了内部横排"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_gravity="center_horizontal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_marginTop="5dp">
             <TextView
-                android:contentDescription="ID这两个字"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="ID"
                 android:textSize="@dimen/personinfo_left_font_size"
                 android:textColor="#000000"/>
             <TextView
-                android:contentDescription="ID数字"
                 android:id="@+id/textview_online_id"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/personinfo_left_font_size"
-                android:layout_marginLeft="10dp"/>
+                android:layout_marginLeft="10dp"
+                android:textSize="@dimen/personinfo_left_font_size"/>
         </LinearLayout>
     </LinearLayout>
 
