@@ -4,7 +4,9 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.BottomSheetDialog;
 import android.support.v4.app.Fragment;
@@ -23,7 +25,11 @@ import com.cc.creader.activity.LoginActivity;
 import com.cc.creader.R;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
+import static android.R.attr.path;
+import static android.app.Activity.RESULT_OK;
 import static com.cc.creader.activity.MainActivity.dbmanager;
 
 public class PersonInfoFragment extends Fragment
@@ -33,8 +39,7 @@ public class PersonInfoFragment extends Fragment
     private String onlineID;
     private String onlineAccount;
     private String profile_route;
-//    private String onlineID;
-//    private String onlineAccount;
+    private ImageView ima_profile;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -55,10 +60,33 @@ public class PersonInfoFragment extends Fragment
         profile_route = cursor.getString(cursor.getColumnIndex("ProfileRoute"));
         onlineID = cursor.getString(cursor.getColumnIndex("ID"));
         onlineAccount = cursor.getString(cursor.getColumnIndex("AccountNumber"));
+        ima_profile = (ImageView) getActivity().findViewById(R.id.image_profile);
 
-        initView();
+        initView(); //初始化数据信息
 
-        //退出账号监听器
+        //修改头像
+        ima_profile.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                showUpdateProfileDialog();
+            }
+        });
+
+
+        //修改密码
+        LinearLayout layout_modifypass = (LinearLayout) getActivity().findViewById(R.id.layout_modifypass);
+        layout_modifypass.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                showUpdatePassDialog();
+            }
+        });
+
+        //退出账号
         LinearLayout linearLayout = (LinearLayout) getActivity().findViewById(R.id.layout_logoff);
         linearLayout.setOnClickListener(new View.OnClickListener()
         {
@@ -73,33 +101,13 @@ public class PersonInfoFragment extends Fragment
                 startActivity(intent);
             }
         });
-
-        //修改密码监听器
-        LinearLayout layout_modifypass = (LinearLayout) getActivity().findViewById(R.id.layout_modifypass);
-        layout_modifypass.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                showModiPassDialog();
-            }
-        });
     }
 
     private void initView()
     {
         //设置头像
-        ImageView ima_profile = (ImageView) getActivity().findViewById(R.id.image_profile);
-        if (profile_route==null || profile_route.length()==0 || !fileIsExists(profile_route)) //如果ProfileRoute为null或空，即默认头像没有被替换；或者文件不存在
-        {
-            ima_profile.setImageResource(R.drawable.default_profile);
-        }
-        else
-        {
-            //如果默认头像被替换了，用被替换掉的头像的路径
-            Bitmap bitmap = BitmapFactory.decodeFile(profile_route);
-            ima_profile.setImageBitmap(bitmap);
-        }
+        setProfile(profile_route);
+
         //设置ID
         TextView tv_id = (TextView) getActivity().findViewById(R.id.textview_online_id);
         tv_id.setText(onlineID);
@@ -108,24 +116,26 @@ public class PersonInfoFragment extends Fragment
         tv_account.setText(onlineAccount);
     }
 
-    public boolean fileIsExists(String strFile)
+    private void showUpdateProfileDialog()
     {
-        try
+        dialog = new BottomSheetDialog(getActivity());
+        View commentView = LayoutInflater.from(getActivity()).inflate(R.layout.modi_profile_layout,null);
+        Button bt_modiprofile = (Button) commentView.findViewById(R.id.button_modi_profile);
+        dialog.setContentView(commentView);
+        bt_modiprofile.setOnClickListener(new View.OnClickListener()
         {
-            File f = new File(strFile);
-            if (!f.exists())
+            @Override
+            public void onClick(View v)
             {
-                return false;
+                dialog.dismiss();
+                Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(intent, 2);  //唯一即可
             }
-        }
-        catch (Exception e)
-        {
-            return false;
-        }
-        return true;
+        });
+        dialog.show();
     }
 
-    private void showModiPassDialog()
+    private void showUpdatePassDialog()
     {
         dialog = new BottomSheetDialog(getActivity());
         View commentView = LayoutInflater.from(getActivity()).inflate(R.layout.modi_pass_layout,null);
@@ -168,6 +178,88 @@ public class PersonInfoFragment extends Fragment
         });
         dialog.show();
     }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        super.onActivityResult(requestCode, resultCode, data);
+        //在相册里面选择好相片之后调回到现在的这个activity中
+        switch (requestCode)
+        {
+            case 2:
+            if (resultCode == RESULT_OK)
+            {
+                try
+                {
+                    Uri selectedImage = data.getData(); //获取系统返回的照片的Uri
+                    String[] filePathColumn = {MediaStore.Images.Media.DATA};
+                    Cursor cursor = getActivity().getContentResolver().query(selectedImage, filePathColumn, null, null, null);//从系统表中查询指定Uri对应的照片
+                    cursor.moveToFirst();
+                    int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+                    String path = cursor.getString(columnIndex);  //获取照片路径
+                    cursor.close();
+                    if(setProfile(path))
+                    {
+                        String command_update_profile = "UPDATE AccountInfo SET ProfileRoute = \'" + path + "\' WHERE ID = " + onlineID;
+                        dbmanager.updateDB(command_update_profile);
+                        Toast.makeText(getActivity(), "更换头像成功！", Toast.LENGTH_SHORT).show();
+                    }
+                }
+                catch (Exception e)
+                {
+                    e.printStackTrace();
+                }
+            }
+            break;
+            default:
+                break;
+        }
+    }
+
+    private boolean setProfile(String route)
+    {
+        try
+        {
+            //如果ProfileRoute为null或空，即默认头像没有被替换；或者文件不存在
+            if (route==null || route.length()==0 || !fileIsExists(route))
+            {
+                ima_profile.setImageResource(R.drawable.default_profile);
+                return true;
+            }
+            Bitmap bitmap = BitmapFactory.decodeFile(route);
+            if (bitmap.getRowBytes() * bitmap.getHeight() > 1000000)   //图片过大，压缩
+            {
+                BitmapFactory.Options options = new BitmapFactory.Options();
+                options.inSampleSize = 4;
+                bitmap = BitmapFactory.decodeFile(route, options);
+            }
+            ima_profile.setImageBitmap(bitmap);
+        }
+        catch (Exception e)
+        {
+            return false;
+        }
+        return true;
+    }
+
+
+    public boolean fileIsExists(String strFile)
+    {
+        try
+        {
+            File f = new File(strFile);
+            if (!f.exists())
+            {
+                return false;
+            }
+        }
+        catch (Exception e)
+        {
+            return false;
+        }
+        return true;
+    }
+
 
 //    @Override
 //    public void onStart()
