@@ -19,7 +19,7 @@
                   android:launchMode="singleTask">
         </activity>
 
-        <activity android:name=".activity.LogupActivity">
+        <activity android:name=".activity.SignupActivity">
         </activity>
 
         <activity android:name=".activity.SplashActivity"

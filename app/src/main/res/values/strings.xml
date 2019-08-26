@@ -1,5 +1,3 @@
 <resources>
     <string name="app_name">cReader</string>
-    <string name="str_test">登录界面，可以实现用户密码的验证、登录操作以及注册账户的操作。能显示用户的基本信息和实现记住密码的基本功能。
-能够修改用户信息。</string>
 </resources>

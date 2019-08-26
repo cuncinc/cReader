@@ -25,14 +25,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-//        getSupportActionBar().hide();
-        Button b_login = (Button) findViewById(R.id.button_login);
-        Button b_tologup = (Button) findViewById(R.id.button_tologup);
 
+        Button b_login = (Button) findViewById(R.id.button_login);
+        Button b_tosignup = (Button) findViewById(R.id.button_tosignup);
         et_account = (EditText) findViewById(R.id.editText_account);
         et_password = (EditText) findViewById(R.id.editText_password);
         b_login.setOnClickListener(this);
-        b_tologup.setOnClickListener(this);
+        b_tosignup.setOnClickListener(this);
 
         dbmanager = new DBManager(this);
     }
@@ -90,9 +89,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 startActivity(intent);
                 break;
             }
-            case R.id.button_tologup:
+            case R.id.button_tosignup:
             {
-                Intent intent_2 = new Intent(LoginActivity.this, LogupActivity.class);
+                Intent intent_2 = new Intent(LoginActivity.this, SignupActivity.class);
                 startActivityForResult(intent_2, 1); //请求码唯一
                 //如果注册成功，返回账号，密码（或者直接从数据库读取），不用再输入，直接登录
                 break;
@@ -138,12 +137,4 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         intent.addCategory(Intent.CATEGORY_HOME);
         startActivity(intent);
     }
-
-//    @Override
-//    public void onRestart()
-//    {
-//        super.onRestart();
-////        dbmanager = new DBManager(this);
-//    }
-
 }

@@ -5,9 +5,8 @@
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp"
     android:paddingTop="50dp"
     tools:context="com.cc.creader.activity.LoginActivity">
     <LinearLayout
@@ -23,7 +22,6 @@
                 android:layout_width="18dp"
                 android:layout_height="18dp"
                 android:layout_gravity="center"
-                android:layout_marginLeft="@dimen/personinfo_left_margin"
                 android:layout_marginRight="10dp"
                 android:background="@drawable/icon_account"
                 android:scaleType="centerInside"/>
@@ -36,17 +34,13 @@
                 android:digits="0123456789abcdefghijklmnopqrstuvwxyz"
                 android:hint="账号"
                 android:maxLines="1"
-                android:maxLength="16"
-                android:imeOptions="actionNext"
-                android:nextFocusForward="@+id/editText_password"/>
+                android:maxLength="16"/>
         </LinearLayout>
         <View
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
             android:alpha="0.6"
-            android:background="@android:color/darker_gray"
-            android:layout_marginLeft="@dimen/personinfo_left_margin"
-            android:layout_marginRight="@dimen/personinfo_left_margin"/>
+            android:background="@android:color/darker_gray"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -57,7 +51,6 @@
                 android:layout_width="18dp"
                 android:layout_height="18dp"
                 android:layout_gravity="center"
-                android:layout_marginLeft="@dimen/personinfo_left_margin"
                 android:layout_marginRight="10dp"
                 android:background="@drawable/icon_password"
                 android:scaleType="centerInside"/>
@@ -70,21 +63,17 @@
                 android:digits="0123456789abcdefghijklmnopqrstuvwxyz"
                 android:hint="密码"
                 android:maxLines="1"
-                android:maxLength="16"
-                android:imeOptions="actionDone"/>
+                android:maxLength="16"/>
         </LinearLayout>
         <View
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
             android:alpha="0.6"
-            android:background="@android:color/darker_gray"
-            android:layout_marginLeft="@dimen/personinfo_left_margin"
-            android:layout_marginRight="@dimen/personinfo_left_margin"/>
+            android:background="@android:color/darker_gray"/>
         <CheckBox
             android:id="@+id/checkbox_remember_pass"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/personinfo_left_margin"
             android:layout_marginTop="4dp"
             android:text="记住密码"/>
         <LinearLayout
@@ -92,37 +81,25 @@
             android:layout_height="match_parent"
             android:orientation="horizontal"
             android:layout_marginTop="20dp">
-            <FrameLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="2">
-            </FrameLayout>
             <Button
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="6"
                 android:id="@+id/button_login"
-                android:text="登 录"
-                android:elevation="0dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:background="@color/colorTimLoginButton"
+                android:text="登 录"
                 android:textSize="20sp"
                 android:textColor="#FFFFFF"/>
-            <FrameLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="2">
-            </FrameLayout>
         </LinearLayout>
     </LinearLayout>
     <Button
-        android:id="@+id/button_tologup"
+        android:id="@+id/button_tosignup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="注册账号"
         android:layout_gravity="bottom|center_horizontal"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:background="@android:color/transparent"
+        android:text="注册账号"
         android:textColor="@color/colorTimLoginButton"
         android:textSize="15sp"/>
 </RelativeLayout>

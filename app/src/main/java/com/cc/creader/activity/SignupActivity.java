@@ -13,27 +13,27 @@ import android.widget.EditText;
 import com.cc.creader.lib.DBManager;
 import com.cc.creader.R;
 
-public class LogupActivity extends AppCompatActivity implements View.OnClickListener
+public class SignupActivity extends AppCompatActivity implements View.OnClickListener
 {
-    private EditText et_logup_account;
-    private EditText et_logup_password;
-    private EditText et_logup_password_again;
-    private String str_logup_account;
-    private String str_logup_password;
-    private String str_logup_password_again;
+    private EditText et_signup_account;
+    private EditText et_signup_password;
+    private EditText et_signup_password_again;
+    private String SignupAccount;
+    private String SignupPassword;
+    private String SignupPasswordAgain;
     private DBManager dbmanager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_logup);
-//        getSupportActionBar().hide();
-        et_logup_account = (EditText) findViewById(R.id.editText_logup_account);
-        et_logup_password = (EditText) findViewById(R.id.editText_logup_password);
-        et_logup_password_again = (EditText) findViewById(R.id.editText_logup_password_again);
-        Button bt_logup = (Button) findViewById(R.id.button_logup);
-        bt_logup.setOnClickListener(this);
+        setContentView(R.layout.activity_signup);
+
+        et_signup_account = (EditText) findViewById(R.id.editText_signup_account);
+        et_signup_password = (EditText) findViewById(R.id.editText_signup_password);
+        et_signup_password_again = (EditText) findViewById(R.id.editText_sigup_password_again);
+        Button bt_signup = (Button) findViewById(R.id.button_signup);
+        bt_signup.setOnClickListener(this);
 
         dbmanager = new DBManager(this);
     }
@@ -44,55 +44,53 @@ public class LogupActivity extends AppCompatActivity implements View.OnClickList
     {
         switch (v.getId())
         {
-            case R.id.button_logup:
+            case R.id.button_signup:
             {
-                str_logup_account = et_logup_account.getText().toString();
-                str_logup_password = et_logup_password.getText().toString();
-                str_logup_password_again = et_logup_password_again.getText().toString();
+                SignupAccount = et_signup_account.getText().toString();
+                SignupPassword = et_signup_password.getText().toString();
+                SignupPasswordAgain = et_signup_password_again.getText().toString();
 
-                if (null==str_logup_account || 0==str_logup_account.length())
+                if (null==SignupAccount || 0==SignupAccount.length())
                 {
-                    AlertDialog.Builder dialog = new AlertDialog.Builder(LogupActivity.this);
+                    AlertDialog.Builder dialog = new AlertDialog.Builder(SignupActivity.this);
                     dialog.setMessage("账号不能为空");
                     dialog.show();
                     break;
                 }
 
-                String command_find = "SELECT AccountNumber FROM AccountInfo WHERE AccountNumber = \'" + str_logup_account + "\';";
-                //注意str_logup_account不能为空，不然SQL语句错误
+                String command_find = "SELECT AccountNumber FROM AccountInfo WHERE AccountNumber = \'" + SignupAccount+ "\';";
                 Cursor cursor = dbmanager.findDB(command_find);
 
                 //要检查账号的合法性，如不能有汉字，长度限定等等
-
                 //若此账号已被注册
                 if (cursor.moveToFirst())
                 {
-                    AlertDialog.Builder dialog = new AlertDialog.Builder(LogupActivity.this);
+                    AlertDialog.Builder dialog = new AlertDialog.Builder(SignupActivity.this);
                     dialog.setMessage("此账号已被注册");
                     dialog.show();
-                    et_logup_account.setText(null);
+                    et_signup_account.setText(null);
                 }
-                else if (null==str_logup_password || 0==str_logup_password.length()) //有一个方法，能同时判断非null非空
+                else if (null==SignupPassword || 0==SignupPassword.length()) //有一个方法，能同时判断非null非空
                 {
-                    AlertDialog.Builder dialog = new AlertDialog.Builder(LogupActivity.this);
+                    AlertDialog.Builder dialog = new AlertDialog.Builder(SignupActivity.this);
                     dialog.setMessage("密码不能为空");
                     dialog.show();
                 }
                 //若两次输入的密码不同
-                else if (!str_logup_password.equals(str_logup_password_again))
+                else if (!SignupPassword.equals(SignupPasswordAgain))
                 {
-                    AlertDialog.Builder dialog = new AlertDialog.Builder(LogupActivity.this);
+                    AlertDialog.Builder dialog = new AlertDialog.Builder(SignupActivity.this);
                     dialog.setMessage("两次输入的密码不相同，请再次输入！");
                     dialog.show();
-                    et_logup_password_again.setText(null);
+                    et_signup_password_again.setText(null);
                 }
                 else
                 {
                     String command_create = "INSERT INTO AccountInfo(AccountNumber, PassWord) VALUES(\'"
-                                            + str_logup_account + "\' ,\'" + str_logup_password + "\');";
+                                            + SignupAccount + "\' ,\'" + SignupPassword + "\');";
                     dbmanager.createDB(command_create);
 
-                    AlertDialog.Builder dialog = new AlertDialog.Builder(LogupActivity.this);
+                    AlertDialog.Builder dialog = new AlertDialog.Builder(SignupActivity.this);
                     dialog.setMessage("注册成功！");
                     dialog.setCancelable(true);
                     dialog.setOnCancelListener(new DialogInterface.OnCancelListener()
@@ -102,7 +100,7 @@ public class LogupActivity extends AppCompatActivity implements View.OnClickList
                         {
                             toLogin();
                         }
-                    });  //这个怎么用
+                    });
                     dialog.setPositiveButton("去登录", new DialogInterface.OnClickListener()
                     {
                         @Override
@@ -131,7 +129,7 @@ public class LogupActivity extends AppCompatActivity implements View.OnClickList
     private void toLogin()
     {
         Intent intent = new Intent();
-        intent.putExtra("str_logup_account", str_logup_account);
+        intent.putExtra("str_logup_account", SignupAccount);
         setResult(RESULT_OK, intent);
         finish();
     }

@@ -1,5 +1,6 @@
 package com.cc.creader.fragment;
 
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -25,10 +26,7 @@ import com.cc.creader.activity.LoginActivity;
 import com.cc.creader.R;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 
-import static android.R.attr.path;
 import static android.app.Activity.RESULT_OK;
 import static com.cc.creader.activity.MainActivity.dbmanager;
 
@@ -45,7 +43,7 @@ public class PersonInfoFragment extends Fragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
         Log.e("个人中心", "onCreateView");
-        View view = inflater.inflate(R.layout.person_infor_fragment, container, false);
+        View view = inflater.inflate(R.layout.fragment_person_info, container, false);
         return view;
     }
 
@@ -73,7 +71,6 @@ public class PersonInfoFragment extends Fragment
                 showUpdateProfileDialog();
             }
         });
-
 
         //修改密码
         LinearLayout layout_modifypass = (LinearLayout) getActivity().findViewById(R.id.layout_modifypass);
@@ -107,7 +104,6 @@ public class PersonInfoFragment extends Fragment
     {
         //设置头像
         setProfile(profile_route);
-
         //设置ID
         TextView tv_id = (TextView) getActivity().findViewById(R.id.textview_online_id);
         tv_id.setText(onlineID);
@@ -119,7 +115,7 @@ public class PersonInfoFragment extends Fragment
     private void showUpdateProfileDialog()
     {
         dialog = new BottomSheetDialog(getActivity());
-        View commentView = LayoutInflater.from(getActivity()).inflate(R.layout.modi_profile_layout,null);
+        View commentView = LayoutInflater.from(getActivity()).inflate(R.layout.layout_modi_profile,null);
         Button bt_modiprofile = (Button) commentView.findViewById(R.id.button_modi_profile);
         dialog.setContentView(commentView);
         bt_modiprofile.setOnClickListener(new View.OnClickListener()
@@ -138,7 +134,7 @@ public class PersonInfoFragment extends Fragment
     private void showUpdatePassDialog()
     {
         dialog = new BottomSheetDialog(getActivity());
-        View commentView = LayoutInflater.from(getActivity()).inflate(R.layout.modi_pass_layout,null);
+        View commentView = LayoutInflater.from(getActivity()).inflate(R.layout.layout_modi_pass,null);
         final EditText et_oldpass = (EditText) commentView.findViewById(R.id.editText_oldPass);
         final EditText et_newpass = (EditText) commentView.findViewById(R.id.editText_newPass);
         final EditText et_newpass_again = (EditText) commentView.findViewById(R.id.editText_newPass_again);
@@ -180,7 +176,7 @@ public class PersonInfoFragment extends Fragment
     }
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data)
+    public void onActivityResult(int requestCode, int resultCode, final Intent data)
     {
         super.onActivityResult(requestCode, resultCode, data);
         //在相册里面选择好相片之后调回到现在的这个activity中
@@ -196,9 +192,9 @@ public class PersonInfoFragment extends Fragment
                     Cursor cursor = getActivity().getContentResolver().query(selectedImage, filePathColumn, null, null, null);//从系统表中查询指定Uri对应的照片
                     cursor.moveToFirst();
                     int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-                    String path = cursor.getString(columnIndex);  //获取照片路径
+                    final String path = cursor.getString(columnIndex);  //获取照片路径
                     cursor.close();
-                    if(setProfile(path))
+                    if (setProfile(path))
                     {
                         String command_update_profile = "UPDATE AccountInfo SET ProfileRoute = \'" + path + "\' WHERE ID = " + onlineID;
                         dbmanager.updateDB(command_update_profile);
@@ -211,8 +207,6 @@ public class PersonInfoFragment extends Fragment
                 }
             }
             break;
-            default:
-                break;
         }
     }
 
@@ -242,7 +236,6 @@ public class PersonInfoFragment extends Fragment
         return true;
     }
 
-
     public boolean fileIsExists(String strFile)
     {
         try
@@ -259,7 +252,6 @@ public class PersonInfoFragment extends Fragment
         }
         return true;
     }
-
 
 //    @Override
 //    public void onStart()
@@ -281,7 +273,7 @@ public class PersonInfoFragment extends Fragment
 //        super.onAttach(context);
 //        Log.e("个人中心", "onAttach");
 //    }
-//
+////
 //    @Override
 //    public void onCreate(Bundle savedInstanceState)
 //    {

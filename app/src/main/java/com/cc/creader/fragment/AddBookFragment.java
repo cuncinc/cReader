@@ -2,7 +2,6 @@ package com.cc.creader.fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +17,7 @@ public class AddBookFragment extends Fragment
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
-        View view = inflater.inflate(R.layout.person_infor_fragment, container, false);
+        View view = inflater.inflate(R.layout.fragment_person_info, container, false);
         return view;
     }
 }

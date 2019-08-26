@@ -46,13 +46,11 @@
           android:background="@android:color/darker_gray"/>
 
     <LinearLayout
-        android:contentDescription="个人信息"
         android:background="@color/colorWhite"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
         <LinearLayout
-            android:contentDescription="账号"
             android:layout_width="match_parent"
             android:layout_height="@dimen/personinfo_list_distance"
             android:orientation="horizontal"
@@ -65,7 +63,6 @@
                 android:layout_marginLeft="@dimen/personinfo_left_margin"
                 android:textColor="#000000"/>
             <TextView
-                android:contentDescription="账号号码"
                 android:id="@+id/textview_online_account"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -74,7 +71,6 @@
 
 
         <View
-            android:contentDescription="线短"
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
             android:alpha="0.6"
@@ -83,7 +79,6 @@
             android:layout_marginRight="@dimen/personinfo_left_margin"/>
 
         <LinearLayout
-            android:contentDescription="邮箱"
             android:layout_width="match_parent"
             android:layout_height="@dimen/personinfo_list_distance"
             android:orientation="horizontal"
@@ -103,7 +98,6 @@
         </LinearLayout>
 
         <View
-            android:contentDescription="线短"
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
             android:alpha="0.6"
@@ -133,7 +127,6 @@
             </LinearLayout>
 
         <View
-            android:contentDescription="线短"
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
             android:alpha="0.6"
@@ -203,19 +196,16 @@
     
     <LinearLayout
         android:id="@+id/layout_logoff"
-        android:contentDescription="退出账号"
         android:background="@color/colorWhite"
         android:layout_width="match_parent"
         android:layout_height="@dimen/personinfo_list_distance"
         android:gravity="center">
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="退出账号"
             android:textColor="#E70303"
-            android:textSize="16sp"
-            />
+            android:textSize="16sp"/>
     </LinearLayout>
 
     <View android:layout_width="match_parent"

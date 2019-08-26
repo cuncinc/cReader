@@ -2,8 +2,6 @@ package com.cc.creader.fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,7 +14,7 @@ import com.cc.creader.lib.FileUtils;
 
 import java.util.ArrayList;
 
-public class BookcaseFragment extends Fragment
+public class BookshelfFragment extends Fragment
 {
     private View view;
     private Button button;
@@ -25,7 +23,7 @@ public class BookcaseFragment extends Fragment
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
-        view = inflater.inflate(R.layout.bookcase_fragment, container, false);
+        view = inflater.inflate(R.layout.fragment_bookshelf, container, false);
         return view;
     }
 

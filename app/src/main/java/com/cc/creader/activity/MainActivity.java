@@ -1,12 +1,7 @@
 package com.cc.creader.activity;
 
 import android.content.Intent;
-import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -17,11 +12,9 @@ import android.widget.RadioGroup;
 
 import com.cc.creader.lib.DBManager;
 import com.cc.creader.R;
-import com.cc.creader.fragment.BookcaseFragment;
+import com.cc.creader.fragment.BookshelfFragment;
 import com.cc.creader.fragment.BookmaketFragment;
 import com.cc.creader.fragment.PersonInfoFragment;
-
-import static android.R.attr.path;
 
 public class MainActivity extends AppCompatActivity implements RadioGroup.OnCheckedChangeListener
 {
@@ -70,7 +63,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
             case R.id.radio_button_bookshelf:
                 if(fg_bookshelf == null)
                 {
-                    fg_bookshelf = new BookcaseFragment();
+                    fg_bookshelf = new BookshelfFragment();
                     fTransaction.add(R.id.fragment_layout,fg_bookshelf);
                 }
                 else
@@ -119,37 +112,6 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         startActivity(intent);
     }
 
-//    @Override
-//    public void onActivityResult(int requestCode, int resultCode, Intent data)
-//    {
-//        super.onActivityResult(requestCode, resultCode, data);
-//        //在相册里面选择好相片之后调回到现在的这个activity中
-//        switch (requestCode)
-//        {
-//            case 2:
-//                if (resultCode == RESULT_OK)
-//                {
-//                    try
-//                    {
-//                        Uri selectedImage = data.getData(); //获取系统返回的照片的Uri
-//                        String[] filePathColumn = {MediaStore.Images.Media.DATA};
-//                        Cursor cursor = getContentResolver().query(selectedImage, filePathColumn, null, null, null);//从系统表中查询指定Uri对应的照片
-//                        cursor.moveToFirst();
-//                        int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-//                        String path = cursor.getString(columnIndex);  //获取照片路径
-//                        cursor.close();
-//                    }
-//                    catch (Exception e)
-//                    {
-//                        // TODO Auto-generatedcatch block
-//                        e.printStackTrace();
-//                    }
-//                }
-//                break;
-//            default:
-//                break;
-//        }
-//    }
 
 //    @Override
 //    public void onStart()
