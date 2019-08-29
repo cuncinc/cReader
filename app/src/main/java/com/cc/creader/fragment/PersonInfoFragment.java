@@ -22,6 +22,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.cc.creader.activity.LoginActivity;
 import com.cc.creader.R;
 
@@ -52,16 +53,8 @@ public class PersonInfoFragment extends Fragment
     {
         super.onActivityCreated(savedInstanceState);
         Log.e("个人中心", "onActivityCreated");
-        String command_get_onlineAccount = "SELECT * FROM AccountInfo WHERE IsOnline = 1";
-        cursor = dbmanager.findDB(command_get_onlineAccount);
-        cursor.moveToFirst();
-        profile_route = cursor.getString(cursor.getColumnIndex("ProfileRoute"));
-        onlineID = cursor.getString(cursor.getColumnIndex("ID"));
-        onlineAccount = cursor.getString(cursor.getColumnIndex("AccountNumber"));
-        ima_profile = (ImageView) getActivity().findViewById(R.id.image_profile);
 
         initView(); //初始化数据信息
-
         //修改头像
         ima_profile.setOnClickListener(new View.OnClickListener()
         {
@@ -94,22 +87,30 @@ public class PersonInfoFragment extends Fragment
                 dbmanager.updateDB(command_toLogoff);
                 Toast.makeText(getActivity(), "退出成功", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(getActivity(), LoginActivity.class);
-                getActivity().finish();
                 startActivity(intent);
+                getActivity().finish();
             }
         });
     }
 
     private void initView()
     {
-        //设置头像
-        setProfile(profile_route);
+        String command_get_onlineAccount = "SELECT * FROM AccountInfo WHERE IsOnline = 1";
+        cursor = dbmanager.findDB(command_get_onlineAccount);
+        cursor.moveToFirst();
+        profile_route = cursor.getString(cursor.getColumnIndex("ProfileRoute"));
+        onlineID = cursor.getString(cursor.getColumnIndex("ID"));
+        onlineAccount = cursor.getString(cursor.getColumnIndex("AccountNumber"));
+        ima_profile = (ImageView) getActivity().findViewById(R.id.image_profile);
+
         //设置ID
         TextView tv_id = (TextView) getActivity().findViewById(R.id.textview_online_id);
         tv_id.setText(onlineID);
         //设置账号
         TextView tv_account = (TextView) getActivity().findViewById(R.id.textview_online_account);
         tv_account.setText(onlineAccount);
+        //设置头像
+        setProfile(profile_route);
     }
 
     private void showUpdateProfileDialog()
@@ -166,9 +167,12 @@ public class PersonInfoFragment extends Fragment
                 else
                 {
                     dialog.dismiss();
-                    String command_update_pass = "UPDATE AccountInfo SET PassWord = \'" + newpass + "\' WHERE ID = " + onlineID;
+                    String command_update_pass = "UPDATE AccountInfo SET IsRememberPassword = 0, PassWord = \'" + newpass + "\' WHERE ID = " + onlineID;
                     dbmanager.updateDB(command_update_pass);
-                    Toast.makeText(getActivity(),"修改成功",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(),"密码修改成功！",Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(getActivity(), LoginActivity.class);
+                    startActivity(intent);
+                    getActivity().finish();
                 }
             }
         });
@@ -215,19 +219,17 @@ public class PersonInfoFragment extends Fragment
         try
         {
             //如果ProfileRoute为null或空，即默认头像没有被替换；或者文件不存在
-            if (route==null || route.length()==0 || !fileIsExists(route))
-            {
-                ima_profile.setImageResource(R.drawable.default_profile);
-                return true;
-            }
-            Bitmap bitmap = BitmapFactory.decodeFile(route);
-            if (bitmap.getRowBytes() * bitmap.getHeight() > 1000000)   //图片过大，压缩
-            {
-                BitmapFactory.Options options = new BitmapFactory.Options();
-                options.inSampleSize = 4;
-                bitmap = BitmapFactory.decodeFile(route, options);
-            }
-            ima_profile.setImageBitmap(bitmap);
+//            if (route==null || route.length()==0 || !fileIsExists(route))
+//            {
+//                ima_profile.setImageResource(R.drawable.default_profile);
+//                Log.e("Profile", "Defuaut");
+//                return true;
+//            }
+//            else
+//            {
+                Glide.with(getActivity()).load(route).placeholder(R.drawable.default_profile).error(R.drawable.default_profile).into(ima_profile);
+                Log.e("Profile", "Changed");
+//            }
         }
         catch (Exception e)
         {

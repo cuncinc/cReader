@@ -14,15 +14,19 @@ import android.widget.EditText;
 import com.cc.creader.lib.DBManager;
 import com.cc.creader.R;
 
+import java.sql.Time;
+
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener
 {
     private EditText et_account;
     private EditText et_password;
     private DBManager dbmanager;
+    private CheckBox checkBox;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
+        dbmanager = new DBManager(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
@@ -30,10 +34,31 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         Button b_tosignup = (Button) findViewById(R.id.button_tosignup);
         et_account = (EditText) findViewById(R.id.editText_account);
         et_password = (EditText) findViewById(R.id.editText_password);
+        checkBox = (CheckBox)findViewById(R.id.checkbox_remember_pass);
+        initAccountEdit();
+
         b_login.setOnClickListener(this);
         b_tosignup.setOnClickListener(this);
+    }
 
-        dbmanager = new DBManager(this);
+    private void initAccountEdit()
+    {
+        String command_get_lastLoginAccount = "SELECT * FROM AccountInfo ORDER BY LastLoginTime DESC LIMIT 1;";
+        Cursor cursor = dbmanager.findDB(command_get_lastLoginAccount);
+        cursor.moveToFirst();
+        if (cursor.isNull(cursor.getColumnIndex("LastLoginTime")))
+        {
+            return;
+        }
+        else
+        {
+            et_account.setText(cursor.getString(cursor.getColumnIndex("AccountNumber")));
+            if (cursor.getInt(cursor.getColumnIndex("IsRememberPassword")) == 1)
+            {
+                et_password.setText(cursor.getString(cursor.getColumnIndex("PassWord")));
+                checkBox.setChecked(true);
+            }
+        }
     }
 
     @Override
@@ -45,7 +70,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             {
                 String str_account = et_account.getText().toString();
                 String str_password = et_password.getText().toString();
-                CheckBox checkBox = (CheckBox)findViewById(R.id.checkbox_remember_pass);
 
                 if (null==str_account || 0==str_account.length())
                 {
@@ -76,12 +100,15 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     break;
                 }
                 String command_update_remember;
+                int remenberpass;
                 if (checkBox.isChecked()) //如果记住了密码
-                    command_update_remember = "UPDATE AccountInfo SET IsRememberAccount = 1 WHERE AccountNumber = \'" + str_account + "\';";
+                        remenberpass = 1;
                 else    //没有记住密码
-                    command_update_remember = "UPDATE AccountInfo SET IsRememberAccount = 0 WHERE AccountNumber = \'" + str_account + "\';";
-                dbmanager.updateDB(command_update_remember);
-                String command_upToOnline = "UPDATE AccountInfo SET IsOnline = 1 WHERE AccountNumber = \'" + str_account + "\'";
+                        remenberpass = 0;
+                String command_upToOnline =  "UPDATE AccountInfo SET IsOnline = 1, IsRememberPassword = "
+                        + remenberpass +", LastLoginTime = " + System.currentTimeMillis()
+                        + " WHERE AccountNumber = '" + str_account + "\'";
+                Log.e("Command", command_upToOnline);
                 dbmanager.updateDB(command_upToOnline);
 
                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
@@ -93,7 +120,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             {
                 Intent intent_2 = new Intent(LoginActivity.this, SignupActivity.class);
                 startActivityForResult(intent_2, 1); //请求码唯一
-                //如果注册成功，返回账号，密码（或者直接从数据库读取），不用再输入，直接登录
                 break;
             }
             default:
