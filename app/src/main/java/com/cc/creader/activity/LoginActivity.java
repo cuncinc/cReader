@@ -20,13 +20,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 {
     private EditText et_account;
     private EditText et_password;
-    private DBManager dbmanager;
+    private DBManager dbmanager = new DBManager(this);
     private CheckBox checkBox;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
-        dbmanager = new DBManager(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 

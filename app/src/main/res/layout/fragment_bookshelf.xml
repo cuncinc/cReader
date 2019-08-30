@@ -23,7 +23,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:hint="搜索书名"/>
-        <!--
+
         <ImageView
             android:id="@+id/imageView_add_book"
             android:layout_width="25dp"
@@ -31,14 +31,18 @@
             android:layout_gravity="center_vertical"
             android:background="@drawable/icon_import"
             android:scaleType="centerInside"/>
-            -->
+
     </LinearLayout>
-    <ImageView
-        android:id="@+id/imageView_add_book"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
-        android:layout_gravity="center_vertical"
-        android:background="@drawable/icon_import"
-        android:scaleType="centerInside"/>
+
+    <GridView
+        android:id="@+id/grid_book"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:stretchMode="columnWidth"
+        android:numColumns="3"
+        android:verticalSpacing="5dp">
+
+    </GridView>
 
 </LinearLayout>

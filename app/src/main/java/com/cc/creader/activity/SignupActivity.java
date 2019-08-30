@@ -21,7 +21,7 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
     private String SignupAccount;
     private String SignupPassword;
     private String SignupPasswordAgain;
-    private DBManager dbmanager;
+    private DBManager dbmanager = new DBManager(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -34,8 +34,6 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
         et_signup_password_again = (EditText) findViewById(R.id.editText_sigup_password_again);
         Button bt_signup = (Button) findViewById(R.id.button_signup);
         bt_signup.setOnClickListener(this);
-
-        dbmanager = new DBManager(this);
     }
 
     @Override

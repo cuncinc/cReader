@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="100dp"
+              android:layout_height="140dp">
+
+    <TextView
+        android:id="@+id/tv_book_name"
+        android:layout_width="100dp"
+        android:layout_height="140dp"
+        android:background="@color/colorTimLoginButton"
+        android:maxLines="2"/>
+
+</RelativeLayout>

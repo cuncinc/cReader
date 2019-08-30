@@ -18,9 +18,9 @@ import java.io.InputStream;
 
 public class DBManager
 {
-    private final int BUFFER_SIZE = 400;
+    private final int BUFFER_SIZE = 100;
     private static final String DB_NAME = "creader.db"; //保存的数据库文件名
-    private static final String DB_PATH = "/data/data/com.cc.creader";
+    private static final String DB_PATH = "/data/data/com.cc.creader/files";
 
     private SQLiteDatabase database;
     private Context context;
@@ -31,11 +31,6 @@ public class DBManager
         this.database = this.openDB(DB_PATH + "/" + DB_NAME);
     }
 
-//    public void openDB()
-//    {
-//        this.database = this.openDB(DB_PATH + "/" + DB_NAME);
-//    }
-
     private SQLiteDatabase openDB(String dbfile)
     {
         try
@@ -43,14 +38,17 @@ public class DBManager
             if (!(new File(dbfile).exists()))
             {
                 //判断数据库文件是否存在，若不存在则执行导入，否则直接打开数据库
-                InputStream inputstream = this.context.getResources().openRawResource(R.raw.creader); //欲导入的数据库
-                FileOutputStream fileoutputstream = new FileOutputStream(dbfile);
+                InputStream inputstream = this.context.getResources().getAssets().open("creader.db");
+                //欲导入的数据库
+                FileOutputStream fileoutputstream =context.openFileOutput(DB_NAME, Context.MODE_PRIVATE);
+                 //new FileOutputStream(dbfile);
                 byte[] buffer = new byte[BUFFER_SIZE];
                 int count = 0;
                 while ((count = inputstream.read(buffer)) > 0)
                 {
                     fileoutputstream.write(buffer, 0, count);
                 }
+                fileoutputstream.flush();
                 fileoutputstream.close();
                 inputstream.close();
             }
