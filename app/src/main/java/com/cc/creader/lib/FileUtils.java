@@ -6,7 +6,6 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.provider.MediaStore.Files;
 import android.provider.MediaStore.Files.FileColumns;
-import android.util.Log;
 
 import java.util.ArrayList;
 

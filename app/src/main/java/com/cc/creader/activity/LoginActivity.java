@@ -42,6 +42,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private void initAccountEdit()
     {
+        checkBox.setChecked(false);
         String command_get_lastLoginAccount = "SELECT * FROM AccountInfo ORDER BY LastLoginTime DESC LIMIT 1;";
         Cursor cursor = dbmanager.findDB(command_get_lastLoginAccount);
         cursor.moveToFirst();
@@ -107,7 +108,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 String command_upToOnline =  "UPDATE AccountInfo SET IsOnline = 1, IsRememberPassword = "
                         + remenberpass +", LastLoginTime = " + System.currentTimeMillis()
                         + " WHERE AccountNumber = '" + str_account + "\'";
-                Log.e("Command", command_upToOnline);
                 dbmanager.updateDB(command_upToOnline);
 
                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
@@ -149,7 +149,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     protected void onDestroy()
     {
         super.onDestroy();
-        Log.e("Login", "onDestroy");
+//        Log.e("Login", "onDestroy");
         dbmanager.closeDB();
     }
 

@@ -1,6 +1,8 @@
 package com.cc.creader.activity;
 
 import android.Manifest;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -22,65 +24,86 @@ import static java.security.AccessController.getContext;
 public class SplashActivity extends AppCompatActivity
 {
     Intent intent;
-    String[] permissions = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
+    String[] permissions = {Manifest.permission_group.STORAGE};
+    boolean isOnline;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         setTheme(R.style.SplashTheme);
-        initPermission();
         super.onCreate(savedInstanceState);
         DBManager dbmanager = new DBManager(this);
         String command_get_online = "SELECT * FROM AccountInfo WHERE IsOnline = 1;";
         Cursor cursor = dbmanager.findDB(command_get_online);
-
-        if (cursor.moveToFirst())   //若有账号在线的
-            intent = new Intent(SplashActivity.this, MainActivity.class);
-        else    //没有账号在线的
-            intent = new Intent(SplashActivity.this, LoginActivity.class);
-
+        isOnline = cursor.moveToFirst();
         dbmanager.closeDB();
         cursor.close();
-
-        startActivity(intent);
-        finish();
+        initPermission();
+        toCall();
     }
 
     private void initPermission()
     {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
         {
-            if(PackageManager.PERMISSION_GRANTED !=checkSelfPermission(permissions[0]))
-                requestPermissions(permissions, 0);
+            if(PackageManager.PERMISSION_GRANTED != ContextCompat.checkSelfPermission(SplashActivity.this, permissions[0]))
+            {
+                //小米手机根本不执行下面这一句
+                ActivityCompat.requestPermissions(SplashActivity.this, permissions, 1);
+            }
         }
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (grantResults[0]==-1)
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults)
+    {
+        Log.e("已经执行回调", "permission");  //不执行
+        switch (requestCode)
         {
-            Toast.makeText(this, "权限不足", Toast.LENGTH_SHORT).show();
-//            new AlertDialog.Builder(getContext())
-//                    .setTitle("权限不足")
-//                    .setMessage("应用需要获取读取存储空间权限以保证软件能够正常运行")
-//                    .setPositiveButton("重新授权", new DialogInterface.OnClickListener()
-//                    {
-//                        @Override
-//                        public void onClick(DialogInterface dialog, int which) {
-//                            initPermission();
-//                        }
-//                    })
-//                    .setNegativeButton("退出", new DialogInterface.OnClickListener() {
-//                        @Override
-//                        public void onClick(DialogInterface dialog, int which)
-//                        {
-//                            finish();
-//                        }
-//                    })
-//                    .setCancelable(false)
-//                    .show();
+            case 1:
+            super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+            if (grantResults.length>0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
+            {
+                toCall();
+                break;
+            }
+            else
+            {
+                Toast.makeText(this, "权限不足", Toast.LENGTH_SHORT).show();
+                new AlertDialog.Builder(SplashActivity.this)
+                        .setTitle("权限不足")
+                        .setMessage("应用需要获取读取存储空间权限以保证软件能够正常运行")
+                        .setPositiveButton("重新授权", new DialogInterface.OnClickListener()
+                        {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which)
+                            {
+                                initPermission();
+                            }
+                        })
+                        .setNegativeButton("退出", new DialogInterface.OnClickListener()
+                        {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which)
+                            {
+                                finish();
+                            }
+                        })
+                        .setCancelable(false)
+                        .show();
+            }
+            break;
         }
+    }
+
+    private void toCall()
+    {
+        if (isOnline)   //若有账号在线的
+            intent = new Intent(SplashActivity.this, MainActivity.class);
+        else    //没有账号在线的
+            intent = new Intent(SplashActivity.this, LoginActivity.class);
+        startActivity(intent);
+        finish();
     }
 
 //    private void getPermissions()

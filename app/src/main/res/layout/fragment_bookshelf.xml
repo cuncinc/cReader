@@ -4,11 +4,11 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center_horizontal"
-    android:layout_marginTop="15dp">
+    android:layout_marginTop="5dp">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="30dp"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_marginLeft="@dimen/personinfo_left_margin"
         android:layout_marginRight="@dimen/personinfo_left_margin">
@@ -20,8 +20,9 @@
             android:scaleType="centerInside"/>
         <EditText
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:layout_marginRight="5dp"
             android:hint="搜索书名"/>
 
         <ImageView
@@ -31,18 +32,18 @@
             android:layout_gravity="center_vertical"
             android:background="@drawable/icon_import"
             android:scaleType="centerInside"/>
-
     </LinearLayout>
 
     <GridView
         android:id="@+id/grid_book"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="10dp"
         android:gravity="center"
-        android:stretchMode="columnWidth"
         android:numColumns="3"
-        android:verticalSpacing="5dp">
-
+        android:verticalSpacing="5dp"
+        android:horizontalSpacing="5dp"
+        android:choiceMode="multipleChoiceModal">
     </GridView>
 
 </LinearLayout>

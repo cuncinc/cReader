@@ -1,6 +1,7 @@
 package com.cc.creader.activity;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -32,7 +33,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         dbmanager = new DBManager(this);
-        Log.e("Main", "onCreate");
+//        Log.e("Main", "onCreate");
 
         fManager = getSupportFragmentManager();
         rg_tab_bar = (RadioGroup) findViewById(R.id.rg_tab_bar);
@@ -98,7 +99,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
     {
         super.onDestroy();
         dbmanager.closeDB();
-        Log.e("Main", "onDestroy");
+//        Log.e("Main", "onDestroy");
     }
 
 

@@ -58,9 +58,9 @@ public class BookAdapter extends BaseAdapter
             convertView = layoutInflater.inflate(R.layout.layout_item_book, null);
         }
         TextView textView= (TextView) convertView.findViewById(R.id.tv_book_name);
-//        Line line=lines.get(position);
-//        imageView.setImageResource(line.getImg());
+        TextView textView2 = (TextView) convertView.findViewById(R.id.tv_book_name2);
         textView.setText(data.get(position).getTitle());
+        textView2.setText(data.get(position).getTitle());
         return convertView;
     }
 }

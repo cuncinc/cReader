@@ -40,7 +40,7 @@ public class PersonInfoFragment extends Fragment
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
-        Log.e("个人中心", "onCreateView");
+//        Log.e("个人中心", "onCreateView");
         View view = inflater.inflate(R.layout.fragment_person_info, container, false);
         return view;
     }
@@ -49,7 +49,7 @@ public class PersonInfoFragment extends Fragment
     public void onActivityCreated(Bundle savedInstanceState)
     {
         super.onActivityCreated(savedInstanceState);
-        Log.e("个人中心", "onActivityCreated");
+//        Log.e("个人中心", "onActivityCreated");
 
         initView(); //初始化数据信息
         //修改头像
@@ -215,18 +215,7 @@ public class PersonInfoFragment extends Fragment
     {
         try
         {
-            //如果ProfileRoute为null或空，即默认头像没有被替换；或者文件不存在
-//            if (route==null || route.length()==0 || !fileIsExists(route))
-//            {
-//                ima_profile.setImageResource(R.drawable.default_profile);
-//                Log.e("Profile", "Defuaut");
-//                return true;
-//            }
-//            else
-//            {
-                Glide.with(getActivity()).load(route).placeholder(R.drawable.default_profile).error(R.drawable.default_profile).into(ima_profile);
-                Log.e("Profile", "Changed");
-//            }
+            Glide.with(getActivity()).load(route).placeholder(R.drawable.default_profile).error(R.drawable.default_profile).into(ima_profile);
         }
         catch (Exception e)
         {

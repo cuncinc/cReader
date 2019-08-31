@@ -1,23 +1,20 @@
 <resources>
 
-    <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorTimLoginButton</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+     <!--   <item name="colorPrimaryDark">@color/colorPrimaryDark</item>-->
         <item name="colorAccent">@color/colorPrimary</item>
     </style>
 
     <style name="FullScreen" parent="Theme.AppCompat.NoActionBar">
         <item name="colorPrimary">@color/colorTimLoginButton</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorPrimaryDark">#ccc5be</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:windowFullscreen">true</item>
-        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">false</item>
+        <!--<item name="android:windowNoTitle">true</item>-->
         <item name="windowActionBar">false</item>
     </style>
 
-    <!-- other styles -->
     <!-- SplashActivity theme. -->
     <style name="SplashTheme" parent="Theme.AppCompat.NoActionBar">
         <item name="android:windowFullscreen">true</item>
@@ -33,7 +30,7 @@
         <item name="android:gravity">center</item>
         <item name="android:paddingTop">3dp</item>
         <item name="android:textColor">@drawable/tab_menu_text</item>
-        <item name="android:textSize">12sp</item>
+        <item name="android:textSize">13sp</item>
     </style>
 
 </resources>

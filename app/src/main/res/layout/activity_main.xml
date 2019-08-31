@@ -13,6 +13,10 @@
         android:layout_weight="1">
     </FrameLayout>
 
+    <View android:layout_width="match_parent"
+          android:layout_height="0.6dp"
+          android:alpha="0.8"
+          android:background="@android:color/darker_gray"/>
     <RadioGroup
         android:id="@+id/rg_tab_bar"
         android:layout_width="match_parent"
@@ -20,27 +24,20 @@
         android:orientation="horizontal"
         android:gravity="center"
         android:background="@android:color/white">
-
             <RadioButton
                 android:id="@+id/radio_button_bookmaket"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
                 android:text="书城"
                 android:drawableTop="@drawable/tab_menu_bookmaket"
                 style="@style/RadioGroupButtonStyle"/>
 
             <RadioButton
                 android:id="@+id/radio_button_bookshelf"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:text="书架"
                 android:drawableTop="@drawable/tab_menu_bookshelf"
                 style="@style/RadioGroupButtonStyle"/>
 
             <RadioButton
                 android:id="@+id/radio_button_personinfo"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:text="我的"
                 android:drawableTop="@drawable/tab_menu_personinfo"
                 style="@style/RadioGroupButtonStyle"/>

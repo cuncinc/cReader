@@ -2,6 +2,7 @@ package com.cc.creader.activity;
 
 import android.database.Cursor;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -17,6 +18,7 @@ import com.cc.creader.source.BookData;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.jar.Manifest;
 
 /**
  * Created by CC on 2019/8/27.
@@ -40,16 +42,11 @@ public class AddBookActivity extends AppCompatActivity implements View.OnClickLi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_add_book);
 
-        String command_get_onlineAccount = "SELECT ID FROM AccountInfo WHERE IsOnline = 1";
-        Cursor cursor = dbManager.findDB(command_get_onlineAccount);
-        cursor.moveToFirst();
-        onlineID = cursor.getInt(0);
-
+        onlineID = getOnlineID();
+        file_routes=new ArrayList<>();
         bt_scanbook = (Button)findViewById(R.id.button_scanbook);
         bt_importbook = (Button) findViewById(R.id.button_import_book);
         listView = (ListView)findViewById(R.id.listView_scanned_book);
-        file_routes=new ArrayList<>();
-//        scannedBook = new ArrayList<>();
         bt_scanbook.setOnClickListener(this);
         bt_importbook.setOnClickListener(this);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener()
@@ -65,8 +62,16 @@ public class AddBookActivity extends AppCompatActivity implements View.OnClickLi
                 {
                     positions.add(position);
                 }
+                bt_importbook.setText("导入书架("+positions.size()+")");
             }
         });
+    }
+
+    @Override
+    public void onDestroy()
+    {
+        super.onDestroy();
+        dbManager.closeDB();
     }
 
     @Override
@@ -96,10 +101,22 @@ public class AddBookActivity extends AppCompatActivity implements View.OnClickLi
                     dbManager.createDB(command_insert_book);
                 }
                 finish();
+                positions.clear();
                 break;
             }
         }
     }
+
+    private int getOnlineID()
+    {
+        String command_get_onlineAccount = "SELECT ID FROM AccountInfo WHERE IsOnline = 1";
+        Cursor cursor = dbManager.findDB(command_get_onlineAccount);
+        cursor.moveToFirst();
+        int ID = cursor.getInt(0);
+        cursor.close();
+        return ID;
+    }
+
 
     private ArrayList<String> getTitle(ArrayList<String> routes)
     {
@@ -110,11 +127,5 @@ public class AddBookActivity extends AppCompatActivity implements View.OnClickLi
             title.add(routes.get(i).substring(x+1, routes.get(i).length()-4));
         }
         return title;
-    }
-
-    public void onDestroy()
-    {
-        super.onDestroy();
-        dbManager.closeDB();
     }
 }
