@@ -6,6 +6,9 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.provider.MediaStore.Files;
 import android.provider.MediaStore.Files.FileColumns;
+import android.util.Log;
+
+import com.cc.creader.source.BookData;
 
 import java.util.ArrayList;
 
@@ -16,15 +19,15 @@ import java.util.ArrayList;
 
 public class FileUtils
 {
-    public static ArrayList<String> getSpecificTypeOfFile(Context context, String[] extension)
+    public static ArrayList<BookData> getSpecificTypeOfFile(Context context, String[] extension)
     {
-        ArrayList<String> file_routes = new ArrayList<String>();
+        ArrayList<BookData> files = new ArrayList<BookData>();
         //从外存中获取
         Uri fileUri = Files.getContentUri("external");
         //筛选列，这里只筛选了：文件路径和不含后缀的文件名
         String[] projection = new String[]
         {
-            FileColumns.DATA, FileColumns.TITLE
+            FileColumns.DATA, FileColumns.TITLE, FileColumns.SIZE
         };
         //构造筛选语句
         String selection = "";
@@ -50,12 +53,11 @@ public class FileUtils
             do
             {
                 //输出文件的完整路径
-                String data = cursor.getString(0);
-                file_routes.add(data);
-//                Log.e("tag", data);
+                BookData data = new BookData(cursor.getString(0), cursor.getString(1), cursor.getDouble(2));
+                files.add(data);
             } while (cursor.moveToPrevious());
         }
         cursor.close();
-        return file_routes;
+        return files;
     }
 }

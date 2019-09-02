@@ -60,7 +60,54 @@ public class BookAdapter extends BaseAdapter
         TextView textView= (TextView) convertView.findViewById(R.id.tv_book_name);
         TextView textView2 = (TextView) convertView.findViewById(R.id.tv_book_name2);
         textView.setText(data.get(position).getTitle());
+        int size = (int) (data.get(position).getSize()/1024/1024);
+        int res = getImage(size);
+
+        textView.setBackgroundResource(res);
         textView2.setText(data.get(position).getTitle());
         return convertView;
+    }
+
+    int getImage(int size)
+    {
+        int res;
+        switch (size)
+        {
+            case 0:
+            case 1:
+                res = R.drawable.c1;
+                break;
+            case 2:
+                res = R.drawable.c2;
+                break;
+            case 3:
+                res = R.drawable.c3;
+                break;
+            case 4:
+                res = R.drawable.c4;
+                break;
+            case 5:
+                res = R.drawable.c5;
+                break;
+            case 6:
+                res = R.drawable.c6;
+                break;
+            case 7:
+                res = R.drawable.c7;
+                break;
+            case 8:
+                res = R.drawable.c8;
+                break;
+            case 9:
+                res = R.drawable.c9;
+                break;
+            case 10:
+                res = R.drawable.c10;
+                break;
+            default:
+                res = R.drawable.c11;
+                break;
+        }
+        return res;
     }
 }

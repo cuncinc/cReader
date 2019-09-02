@@ -2,6 +2,8 @@ package com.cc.creader.fragment;
 
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -22,6 +24,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.cc.creader.activity.LoginActivity;
 import com.cc.creader.R;
+import com.jackandphantom.blurimage.BlurImage;
 
 import java.io.File;
 
@@ -213,6 +216,9 @@ public class PersonInfoFragment extends Fragment
 
     private boolean setProfile(String route)
     {
+        ImageView image_background = (ImageView)getActivity().findViewById(R.id.image_background);
+        Bitmap bitmap = BitmapFactory.decodeFile(route);
+        BlurImage.with(getActivity()).load(bitmap).intensity(250).Async(true).into(image_background);
         try
         {
             Glide.with(getActivity()).load(route).placeholder(R.drawable.default_profile).error(R.drawable.default_profile).into(ima_profile);

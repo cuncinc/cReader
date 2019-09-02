@@ -52,6 +52,8 @@ public class TextAdapter extends PagerAdapter
     {
         container.addView(datas.get(position).getView());
         String s = datas.get(position).getText();
+        String t = datas.get(position).getTitle();
+        ((TextView)(datas.get(position).getView().findViewById(R.id.textView_name))).setText(t);
         ((TextView)(datas.get(position).getView().findViewById(R.id.textView_txt))).setText(s);
         return datas.get(position).getView();
     }

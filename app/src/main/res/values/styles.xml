@@ -2,8 +2,9 @@
 
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/colorTimLoginButton</item>
-     <!--   <item name="colorPrimaryDark">@color/colorPrimaryDark</item>-->
+        <item name="colorPrimaryDark">#adadad</item>
         <item name="colorAccent">@color/colorPrimary</item>
+        <!--<item name="android:statusBarColor">#adadad</item>-->
     </style>
 
     <style name="FullScreen" parent="Theme.AppCompat.NoActionBar">

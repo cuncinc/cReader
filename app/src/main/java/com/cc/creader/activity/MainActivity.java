@@ -16,6 +16,8 @@ import com.cc.creader.R;
 import com.cc.creader.fragment.BookshelfFragment;
 import com.cc.creader.fragment.BookmaketFragment;
 import com.cc.creader.fragment.PersonInfoFragment;
+import com.gyf.immersionbar.ImmersionBar;
+
 
 public class MainActivity extends AppCompatActivity implements RadioGroup.OnCheckedChangeListener
 {
@@ -32,6 +34,10 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ImmersionBar.with(this)
+                .statusBarAlpha(0.05f).statusBarDarkFont(true)
+                .navigationBarColor(R.color.colorWhite).navigationBarDarkIcon(true).navigationBarAlpha(0.05f)
+                .init();
         dbmanager = new DBManager(this);
 //        Log.e("Main", "onCreate");
 
@@ -65,7 +71,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
                 if(fg_bookshelf == null)
                 {
                     fg_bookshelf = new BookshelfFragment();
-                    fTransaction.add(R.id.fragment_layout,fg_bookshelf);
+                    fTransaction.add(R.id.fragment_layout, fg_bookshelf);
                 }
                 else
                 {
@@ -73,7 +79,8 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
                 }
                 break;
             case R.id.radio_button_personinfo:
-                if(fg_personinfo == null){
+                if(fg_personinfo == null)
+                {
                     fg_personinfo = new PersonInfoFragment();
                     fTransaction.add(R.id.fragment_layout,fg_personinfo);
                 }

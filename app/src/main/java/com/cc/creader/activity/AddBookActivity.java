@@ -9,12 +9,15 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.GridView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.cc.creader.R;
 import com.cc.creader.lib.DBManager;
 import com.cc.creader.lib.FileUtils;
 import com.cc.creader.source.BookData;
+import com.cc.creader.source.ScannedBookAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,8 +30,7 @@ import java.util.jar.Manifest;
 public class AddBookActivity extends AppCompatActivity implements View.OnClickListener
 {
     private ArrayList<BookData> scannedBook;
-    private ArrayList<String> file_routes;
-    private ArrayList<String> file_title;
+    private ArrayList<BookData> books_info;
     private ListView listView;
     private Button bt_scanbook;
     private Button bt_importbook;
@@ -43,7 +45,7 @@ public class AddBookActivity extends AppCompatActivity implements View.OnClickLi
         setContentView(R.layout.layout_add_book);
 
         onlineID = getOnlineID();
-        file_routes=new ArrayList<>();
+        books_info = new ArrayList<>();
         bt_scanbook = (Button)findViewById(R.id.button_scanbook);
         bt_importbook = (Button) findViewById(R.id.button_import_book);
         listView = (ListView)findViewById(R.id.listView_scanned_book);
@@ -82,9 +84,8 @@ public class AddBookActivity extends AppCompatActivity implements View.OnClickLi
             case R.id.button_scanbook:
             {
                 bt_scanbook.setVisibility(View.INVISIBLE);
-                file_routes = FileUtils.getSpecificTypeOfFile(AddBookActivity.this, new String[]{".txt"});
-                file_title = getTitle(file_routes);
-                ArrayAdapter<String> adapter = new ArrayAdapter<>(AddBookActivity.this, android.R.layout.simple_list_item_multiple_choice, file_title);
+                books_info = FileUtils.getSpecificTypeOfFile(AddBookActivity.this, new String[]{".txt"});
+                ScannedBookAdapter adapter = new ScannedBookAdapter(AddBookActivity.this, R.layout.layout_item_scanned_book, books_info);
                 listView.setAdapter(adapter);
                 break;
             }
@@ -93,11 +94,13 @@ public class AddBookActivity extends AppCompatActivity implements View.OnClickLi
                 String name;
                 String route;
                 String command_insert_book;
+                double size;
                 for (int i = 0; i<positions.size(); ++i)
                 {
-                    name = file_title.get(positions.get(i));
-                    route = file_routes.get(positions.get(i));
-                    command_insert_book = "INSERT INTO BookInfo(UserID, BookName, BookPath) VALUES(" + onlineID + ", \'" + name + "\', \'" + route + "\')";
+                    name = books_info.get(positions.get(i)).getTitle();
+                    route = books_info.get(positions.get(i)).getRoute();
+                    size = books_info.get(positions.get(i)).getSize();
+                    command_insert_book = "INSERT INTO BookInfo(UserID, BookName, BookPath, BookSize) VALUES(" + onlineID + ", \'" + name + "\', \'" + route + "\'," + size + ")";
                     dbManager.createDB(command_insert_book);
                 }
                 finish();
@@ -115,17 +118,5 @@ public class AddBookActivity extends AppCompatActivity implements View.OnClickLi
         int ID = cursor.getInt(0);
         cursor.close();
         return ID;
-    }
-
-
-    private ArrayList<String> getTitle(ArrayList<String> routes)
-    {
-        ArrayList<String> title = new ArrayList<String>();
-        for(int i=0; i<routes.size(); ++i)
-        {
-            int x = routes.get(i).lastIndexOf('/');
-            title.add(routes.get(i).substring(x+1, routes.get(i).length()-4));
-        }
-        return title;
     }
 }

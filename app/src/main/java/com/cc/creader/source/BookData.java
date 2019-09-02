@@ -8,12 +8,26 @@ public class BookData
 {
     String title;
     String route;
+    double size;
 
-//    public BookData(String title, String route)
-//    {
-//        this.title = title;
-//        this.route = route;
-//    }
+    public BookData(){}
+
+    public BookData(String route, String title, double size)
+    {
+        this.title = title;
+        this.route = route;
+        this.size = size;
+    }
+
+    public double getSize()
+    {
+        return size;
+    }
+
+    public void setSize(double s)
+    {
+        size = s;
+    }
 
     public String getTitle()
     {

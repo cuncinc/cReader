@@ -10,11 +10,18 @@ public class TextData
 {
     View view;
     String text;
+    String title;
 
-    public TextData(View v, String t)
+    public TextData(View v, String t, String title)
     {
         this.view = v;
         text = t;
+        this.title = title;
+    }
+
+    public String getTitle()
+    {
+        return title;
     }
 
     public View getView()

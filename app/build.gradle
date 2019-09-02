@@ -5,11 +5,13 @@ android {
     buildToolsVersion "24.0.3"
     defaultConfig {
         applicationId "com.cc.creader"
-        minSdkVersion 15
+        minSdkVersion 16
         targetSdkVersion 24
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        renderscriptTargetApi 19
+        renderscriptSupportModeEnabled true
     }
     buildTypes {
         release {
@@ -27,5 +29,9 @@ dependencies {
     compile 'com.android.support:appcompat-v7:24.2.1'
     compile 'com.android.support:design:24.1.0'
     compile 'com.github.bumptech.glide:glide:3.7.0'
+    compile 'com.jackandphantom.android:blurimage:1.2.0'
+    compile 'com.gyf.immersionbar:immersionbar:3.0.0-beta07'
+    compile 'com.gyf.immersionbar:immersionbar-components:3.0.0-beta07'
+
     testCompile 'junit:junit:4.12'
 }

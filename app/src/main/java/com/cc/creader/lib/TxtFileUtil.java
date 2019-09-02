@@ -52,9 +52,11 @@ public class TxtFileUtil
         try
         {
             fin.read(buff);
-            return (new String(buff, "UTF-8"));
+            String encodeing = FileCharsetDetector.getCharset(f);
+            return (new String(buff, encodeing));
         }
-        catch (Exception e)
+
+         catch (Exception e)
         {
             e.printStackTrace();
         }

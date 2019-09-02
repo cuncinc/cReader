@@ -26,6 +26,7 @@ import com.cc.creader.source.BookAdapter;
 import com.cc.creader.source.BookData;
 import com.cc.creader.activity.AddBookActivity;
 import com.cc.creader.R;
+import com.gyf.immersionbar.ImmersionBar;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -47,6 +48,8 @@ public class BookshelfFragment extends Fragment
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
+        int height = ImmersionBar.getStatusBarHeight(getActivity());
+        Log.e("height", ""+height);
         view = inflater.inflate(R.layout.fragment_bookshelf, container, false);
         return view;
     }
@@ -157,6 +160,8 @@ public class BookshelfFragment extends Fragment
             BookData data = new BookData();
             data.setRoute(cursor.getString(cursor.getColumnIndex("BookPath")));
             data.setTitle(cursor.getString(cursor.getColumnIndex("BookName")));
+            data.setSize(cursor.getDouble(cursor.getColumnIndex("BookSize")));
+            Log.e("size", ""+cursor.getDouble(cursor.getColumnIndex("BookSize")));
             books.add(data);
         }
         BookAdapter adapter = new BookAdapter(getActivity(), books);
@@ -167,8 +172,8 @@ public class BookshelfFragment extends Fragment
     public void onStart()
     {
         super.onStart();
-//        Log.e("书架", "onStart");
         initBookShelf();
+//        Log.e("书架", "onStart");
     }
 
 //    @Override

@@ -3,64 +3,69 @@
                 android:background="@color/colorDuokanSpace"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="260dp"
+            android:gravity="center">
+            <ImageView
+                android:id="@+id/image_background"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"/>
+            <ImageView
+                android:id="@+id/image_profile"
+                android:layout_gravity="center"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:scaleType="centerCrop"/>
+        </FrameLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="5dp">
-
-            <ImageView
-                android:id="@+id/image_profile"
-                android:layout_gravity="center_horizontal"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:scaleType="centerCrop"/>
-
+            android:orientation="vertical">
+            <View android:layout_width="match_parent"
+                  android:layout_height="0.5dp"
+                  android:alpha="0.6"
+                  android:background="@android:color/darker_gray"/>
             <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/personinfo_list_distance"
                 android:orientation="horizontal"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="5dp">
+                android:gravity="center_vertical"
+                android:background="@color/colorWhite">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="ID"
                     android:textSize="@dimen/personinfo_left_font_size"
+                    android:layout_marginLeft="@dimen/personinfo_left_margin"
                     android:textColor="#000000"/>
                 <TextView
                     android:id="@+id/textview_online_id"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:textSize="@dimen/personinfo_left_font_size"/>
+                    android:layout_marginLeft="@dimen/personinfo_right_margin"/>
             </LinearLayout>
-        </LinearLayout>
-
-        <View android:layout_width="match_parent"
-              android:layout_height="0.5dp"
-              android:alpha="0.6"
-              android:background="@android:color/darker_gray"/>
-
-        <LinearLayout
-            android:background="@color/colorWhite"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            <View android:layout_width="match_parent"
+                  android:layout_height="0.5dp"
+                  android:alpha="0.6"
+                  android:background="@android:color/darker_gray"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/personinfo_list_distance"
                 android:orientation="horizontal"
-                android:gravity="center_vertical">
+                android:gravity="center_vertical"
+                android:background="@color/colorWhite">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -74,64 +79,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/personinfo_right_margin"/>
             </LinearLayout>
-
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:alpha="0.6"
-                android:background="@android:color/darker_gray"
-                android:layout_marginLeft="@dimen/personinfo_left_margin"
-                android:layout_marginRight="@dimen/personinfo_left_margin"/>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/personinfo_list_distance"
-                android:orientation="horizontal"
-                android:gravity="center_vertical">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="邮箱"
-                    android:textSize="@dimen/personinfo_left_font_size"
-                    android:layout_marginLeft="@dimen/personinfo_left_margin"
-                    android:textColor="#000000"/>
-                <TextView
-                    android:contentDescription="邮箱号码"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    />
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:alpha="0.6"
-                android:background="@android:color/darker_gray"
-                android:layout_marginLeft="@dimen/personinfo_left_margin"
-                android:layout_marginRight="@dimen/personinfo_left_margin"/>
-
-            <LinearLayout
-                android:contentDescription="手机"
-                android:background="@color/colorWhite"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/personinfo_list_distance"
-                android:orientation="horizontal"
-                android:gravity="center_vertical">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="手机"
-                    android:textSize="@dimen/personinfo_left_font_size"
-                    android:layout_marginLeft="@dimen/personinfo_left_margin"
-                    android:textColor="#000000"/>
-                <TextView
-                    android:contentDescription="手机号码"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    />
-                </LinearLayout>
-
             <View
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
@@ -145,7 +92,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/personinfo_list_distance"
                 android:orientation="horizontal"
-                android:gravity="center_vertical">
+                android:gravity="center_vertical"
+                android:background="@color/colorWhite">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -157,67 +105,62 @@
                     android:contentDescription="签名内容"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
-                </LinearLayout>
+            </LinearLayout>
 
+            <View android:layout_width="match_parent"
+                  android:layout_height="0.5dp"
+                  android:alpha="0.6"
+                  android:background="@android:color/darker_gray"/>
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/personinfo_space_distance"/>
+            <View android:layout_width="match_parent"
+                  android:layout_height="0.5dp"
+                  android:alpha="0.6"
+                  android:background="@android:color/darker_gray"/>
+            <LinearLayout
+                android:id="@+id/layout_modifypass"
+                android:background="@color/colorWhite"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/personinfo_list_distance"
+                android:gravity="center_vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="修改密码"
+                    android:textSize="@dimen/personinfo_left_font_size"
+                    android:layout_marginLeft="@dimen/personinfo_left_margin"
+                    android:textColor="#000000"/>
+            </LinearLayout>
+            <View android:layout_width="match_parent"
+                  android:layout_height="0.5dp"
+                  android:alpha="0.6"
+                  android:background="@android:color/darker_gray"/>
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/personinfo_space_distance"/>
+            <View android:layout_width="match_parent"
+                  android:layout_height="0.5dp"
+                  android:alpha="0.6"
+                  android:background="@android:color/darker_gray"/>
+            <LinearLayout
+                android:id="@+id/layout_logoff"
+                android:background="@color/colorWhite"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/personinfo_list_distance"
+                android:gravity="center">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="退出账号"
+                    android:textColor="#E70303"
+                    android:textSize="16sp"/>
+            </LinearLayout>
+            <View android:layout_width="match_parent"
+                  android:layout_height="0.5dp"
+                  android:alpha="0.6"
+                  android:background="@android:color/darker_gray"/>
         </LinearLayout>
-
-        <View android:layout_width="match_parent"
-              android:layout_height="0.5dp"
-              android:alpha="0.6"
-              android:background="@android:color/darker_gray"/>
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/personinfo_space_distance"/>
-        <View android:layout_width="match_parent"
-              android:layout_height="0.5dp"
-              android:alpha="0.6"
-              android:background="@android:color/darker_gray"/>
-
-        <LinearLayout
-            android:id="@+id/layout_modifypass"
-            android:background="@color/colorWhite"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/personinfo_list_distance"
-            android:gravity="center_vertical">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="修改密码"
-                android:textSize="@dimen/personinfo_left_font_size"
-                android:layout_marginLeft="@dimen/personinfo_left_margin"
-                android:textColor="#000000"/>
-        </LinearLayout>
-
-        <View android:layout_width="match_parent"
-              android:layout_height="0.5dp"
-              android:alpha="0.6"
-              android:background="@android:color/darker_gray"/>
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/personinfo_space_distance"/>
-        <View android:layout_width="match_parent"
-              android:layout_height="0.5dp"
-              android:alpha="0.6"
-              android:background="@android:color/darker_gray"/>
-
-        <LinearLayout
-            android:id="@+id/layout_logoff"
-            android:background="@color/colorWhite"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/personinfo_list_distance"
-            android:gravity="center">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="退出账号"
-                android:textColor="#E70303"
-                android:textSize="16sp"/>
-        </LinearLayout>
-
-        <View android:layout_width="match_parent"
-              android:layout_height="0.5dp"
-              android:alpha="0.6"
-              android:background="@android:color/darker_gray"/>
 
     </LinearLayout>
     </ScrollView>
