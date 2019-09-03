@@ -161,7 +161,6 @@ public class BookshelfFragment extends Fragment
             data.setRoute(cursor.getString(cursor.getColumnIndex("BookPath")));
             data.setTitle(cursor.getString(cursor.getColumnIndex("BookName")));
             data.setSize(cursor.getDouble(cursor.getColumnIndex("BookSize")));
-            Log.e("size", ""+cursor.getDouble(cursor.getColumnIndex("BookSize")));
             books.add(data);
         }
         BookAdapter adapter = new BookAdapter(getActivity(), books);

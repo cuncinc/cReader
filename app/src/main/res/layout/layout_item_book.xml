@@ -13,7 +13,8 @@
         android:gravity="center"
         android:background="@drawable/cover_book"
         android:maxLines="2"
-        android:textColor="@color/colorWhite"/>
+        android:textColor="@color/colorWhite"
+        android:textSize="13sp"/>
         <!--<CheckBox-->
             <!--android:id="@+id/tags_checkbox"-->
             <!--android:layout_width="wrap_content"-->
@@ -27,6 +28,8 @@
         android:gravity="center_horizontal"
         android:layout_width="match_parent"
         android:layout_height="35dp"
+        android:layout_marginLeft="3dp"
+        android:layout_marginRight="3dp"
         android:layout_marginTop="7dp"
         android:layout_marginBottom="3dp"
         android:maxLines="2"/>

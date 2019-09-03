@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="200dp">
+
+    <EditText
+        android:id="@+id/editText_signature"
+        android:layout_width="match_parent"
+        android:gravity="top"
+        android:layout_height="150dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="@dimen/personinfo_left_margin"
+        android:layout_marginLeft="@dimen/personinfo_left_margin"
+        android:maxLength="100"
+        android:maxLines="5"
+        android:minLines="5"/>
+
+    <Button
+        android:id="@+id/button_get_signature"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_marginRight="@dimen/personinfo_left_margin"
+        android:layout_marginBottom="20dp"
+        android:text="确定"
+        android:background="@color/colorTimLoginButton"
+        android:textColor="@color/colorWhite"/>
+</LinearLayout>

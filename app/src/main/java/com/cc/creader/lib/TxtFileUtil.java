@@ -1,5 +1,7 @@
 package com.cc.creader.lib;
 
+import android.util.Log;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -52,8 +54,10 @@ public class TxtFileUtil
         try
         {
             fin.read(buff);
-            String encodeing = FileCharsetDetector.getCharset(f);
-            return (new String(buff, encodeing));
+            String encodeing = FileCharsetDetector.getCharset(path);
+            String t = new String(buff, encodeing);
+            t = t.replaceAll("((\r\n)|\n)[\\s\t ]*(\\1)+", "$1");   //删除空行
+            return (t);
         }
 
          catch (Exception e)

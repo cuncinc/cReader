@@ -65,6 +65,17 @@ public class PersonInfoFragment extends Fragment
             }
         });
 
+        //修改签名
+        LinearLayout layout_modi_signature = (LinearLayout) getActivity().findViewById(R.id.layout_signature);
+        layout_modi_signature.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                showUpdatePassSignature();
+            }
+        });
+
         //修改密码
         LinearLayout layout_modifypass = (LinearLayout) getActivity().findViewById(R.id.layout_modifypass);
         layout_modifypass.setOnClickListener(new View.OnClickListener()
@@ -101,6 +112,17 @@ public class PersonInfoFragment extends Fragment
         profile_route = cursor.getString(cursor.getColumnIndex("ProfileRoute"));
         onlineID = cursor.getString(cursor.getColumnIndex("ID"));
         onlineAccount = cursor.getString(cursor.getColumnIndex("AccountNumber"));
+        String signature = cursor.getString(cursor.getColumnIndex("Signature"));
+        if (signature==null || signature.length()==0)
+        {
+            ;
+        }
+        else
+        {
+            TextView tv_signature = (TextView) getActivity().findViewById(R.id.textView_signature);
+            tv_signature.setText(signature);
+        }
+
         ima_profile = (ImageView) getActivity().findViewById(R.id.image_profile);
 
         //设置ID
@@ -111,6 +133,34 @@ public class PersonInfoFragment extends Fragment
         tv_account.setText(onlineAccount);
         //设置头像
         setProfile(profile_route);
+    }
+
+    private void showUpdatePassSignature()
+    {
+        dialog = new BottomSheetDialog(getActivity());
+        View commentView = LayoutInflater.from(getActivity()).inflate(R.layout.layout_modi_signature, null);
+        final EditText et_signature = (EditText) commentView.findViewById(R.id.editText_signature);
+        Button bt_signature = (Button) commentView.findViewById(R.id.button_get_signature);
+        dialog.setContentView(commentView);
+        final TextView tv_signature = (TextView) getActivity().findViewById(R.id.textView_signature);
+        bt_signature.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                dialog.dismiss();
+                String modi_signature = et_signature.getText().toString();
+                if (modi_signature.length()==0)
+                {
+                    Toast.makeText(getActivity(), "签名不能为空", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                String command_update_signature = "UPDATE AccountInfo SET Signature = \'" + modi_signature + "\' WHERE  IsOnline = 1;";
+                dbmanager.updateDB(command_update_signature);
+                tv_signature.setText(modi_signature);
+            }
+        });
+        dialog.show();
     }
 
     private void showUpdateProfileDialog()

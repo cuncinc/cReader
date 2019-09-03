@@ -13,6 +13,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_weight="1"
         android:layout_marginLeft="15dp"
         android:gravity="center_vertical"
         android:orientation="vertical">
@@ -38,6 +39,12 @@
                 android:maxLines="1"
                 android:textSize="12sp"/>
         </LinearLayout>
-
     </LinearLayout>
+    <ImageView
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginLeft="@dimen/personinfo_left_margin"
+        android:layout_marginRight="@dimen/personinfo_left_margin"
+        android:background="@drawable/selector_scanned_book"
+        android:scaleType="centerInside"/>
 </LinearLayout>

@@ -1,6 +1,6 @@
 package com.cc.creader.lib;
 
-import android.text.TextUtils;
+import android.util.Log;
 
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -10,20 +10,17 @@ import java.io.IOException;
  * Created by CC on 2019/9/1.
  */
 
-
 public class FileCharsetDetector
 {
-    private boolean found = false;
-    private String encoding = null;
-
-    public static String getCharset(File file)
+    public static String getCharset(String filePath)
     {
-        String charset = "UTF-8";
+        BufferedInputStream bis = null;
+        String charset = "GBK";
         byte[] first3Bytes = new byte[3];
         try
         {
             boolean checked = false;
-            BufferedInputStream bis = new BufferedInputStream(new FileInputStream(file));
+            bis = new BufferedInputStream(new FileInputStream(filePath));
             bis.mark(0);
             int read = bis.read(first3Bytes, 0, 3);
             if (read == -1)
@@ -38,28 +35,67 @@ public class FileCharsetDetector
                 charset = "UTF-16BE";
                 checked = true;
             }
-            else if (first3Bytes[0] == (byte) 0xEF && first3Bytes[1] == (byte) 0xBB
-                    && first3Bytes[2] == (byte) 0xBF)
+            else if (first3Bytes[0] == (byte) 0xEF && first3Bytes[1] == (byte) 0xBB && first3Bytes[2] == (byte) 0xBF)
             {
                 charset = "UTF-8";
                 checked = true;
             }
+            bis.mark(0);
             if (!checked)
             {
-                if (!TextUtils.isEmpty(charset))
+                while ((read = bis.read()) != -1)
                 {
-                    if (charset.equals("Big5"))
+                    if (read >= 0xF0)
+                        break;
+                    if (0x80 <= read && read <= 0xBF) // 单独出现BF以下的，也算是GBK
+                        break;
+                    if (0xC0 <= read && read <= 0xDF)
                     {
-                        charset = "GBK";
+                        read = bis.read();
+                        if (0x80 <= read && read <= 0xBF) // 双字节 (0xC0 - 0xDF)
+                            // (0x80 - 0xBF),也可能在GB编码内
+                            continue;
+                        else
+                            break;
+
+                    }
+                    else if (0xE0 <= read && read <= 0xEF)
+                    {// 也有可能出错，但是几率较小
+                        read = bis.read();
+                        if (0x80 <= read && read <= 0xBF)
+                        {
+                            read = bis.read();
+                            if (0x80 <= read && read <= 0xBF)
+                            {
+                                charset = "UTF-8";
+                                break;
+                            }
+                            else
+                                break;
+                        }
+                        else
+                            break;
                     }
                 }
             }
-            bis.reset();
-            bis.close();
         }
         catch (Exception e)
         {
             e.printStackTrace();
+        }
+        finally
+        {
+            if (bis != null)
+            {
+                try
+                {
+                    bis.close();
+                }
+                catch (IOException e)
+                {
+                    e.printStackTrace();
+                }
+            }
         }
         return charset;
     }

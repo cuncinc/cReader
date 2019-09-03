@@ -88,6 +88,7 @@
                 android:layout_marginRight="@dimen/personinfo_left_margin"/>
 
             <LinearLayout
+                android:id="@+id/layout_signature"
                 android:contentDescription="签名"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/personinfo_list_distance"
@@ -102,9 +103,13 @@
                     android:layout_marginLeft="@dimen/personinfo_left_margin"
                     android:textColor="#000000"/>
                 <TextView
+                    android:layout_marginLeft="30dp"
+                    android:id="@+id/textView_signature"
                     android:contentDescription="签名内容"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:text="这个人很懒，还没有设置签名~"
+                    android:maxLength="100"/>
             </LinearLayout>
 
             <View android:layout_width="match_parent"
