@@ -78,7 +78,6 @@ public class BookshelfFragment extends Fragment
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id)
             {
-                Toast.makeText(getActivity(), "点击了"+id, Toast.LENGTH_SHORT).show();
                 toReadBook(position);
             }
         });
